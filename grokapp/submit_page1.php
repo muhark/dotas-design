@@ -8,7 +8,7 @@ $output = shell_exec($command);
 ?>
 
 Accessed python version <?php echo $output; ?><br>
-Form provided information <?php echo $_POST; ?>
+Form provided information <?php echo $_POST['birthyear']; ?>
 
 </body>
 </html>
