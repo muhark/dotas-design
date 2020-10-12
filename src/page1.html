@@ -26,8 +26,6 @@
     <p>This survey asks you a few questions about yourself, asks you to watch a short ad, and asks your opinion on matters relating to the ad. It forms part of academic research into the effects of political campaigning. In total this should take you between 3-5 minutes.</p>
   </div>
   <form action="submit_page1.php" method="post" target=_self>
-    <!-- Using POST because sensitive data is submitted, but it's transmitted
-         locally so maybe this is overly paranoid? -->
     <!-- AGE -->
     <div>
       <p>What is your year of birth?</p>
@@ -94,11 +92,11 @@
     <!-- GENDER -->
     <div>
       <p>What is your gender?</p>
-        <input type="radio" id="male" name="gender" value="male">
+        <input type="radio" id="male" name="gender" value="0">
           <label for="male">Male</label><br>
-        <input type="radio" id="female" name="gender" value="female">
+        <input type="radio" id="female" name="gender" value="1">
           <label for="female">Female</label><br>
-        <input type="radio" id="other" name="gender" value="other">
+        <input type="radio" id="other" name="gender" value="0">
           <label for="other">Other</label>
     </div>
 
@@ -106,68 +104,81 @@
     <div>
       <p>Select the race that best describes you.</p>
       <select id="race" name="race">
-        <option value="White">White</option>
-        <option value="Black">Black</option>
-        <option value="Hispanic">Hispanic</option>
-        <option value="Asian">Asian</option>
-        <option value="Native American">Native American</option>
-        <option value="Mixed">Mixed</option>
-        <option value="Other">Other</option>
-        <option value="Middle Eastern">Middle Eastern</option>
+        <option value="1">White</option>
+        <option value="2">Black</option>
+        <option value="3">Hispanic</option>
+        <option value="4">Asian</option>
+        <option value="5">Native American</option>
+        <option value="6">Mixed</option>
+        <option value="7">Other</option>
+        <option value="8">Middle Eastern</option>
       </select>
     </div>
 
     <!-- INCOME -->
     <div>
       <p>Which of the following describes your income group?</p>
-        <input type="radio" id="under50k" name="income" value="under50k">
+        <input type="radio" id="under50k" name="income" value="1">
           <label for="under50k">Under $50k</label><br>
-        <input type="radio" id="50to100k" name="income" value="50to100k">
+        <input type="radio" id="50to100k" name="income" value="2">
           <label for="50to100k">$50-100k</label><br>
-        <input type="radio" id="100kplus" name="income" value="100kplus">
+        <input type="radio" id="100kplus" name="income" value="3">
           <label for="100kplus">$100k or more</label><br>
-        <input type="radio" id="noanswer" name="income" value="noanswer">
+        <input type="radio" id="noanswer" name="income" value="4">
           <label for="noanswer">Prefer not to say</label>
     </div>
+
+    <!-- REGION -->
+    <div>
+      <p>Which region of the United States do you live in?</p>
+      <input type="radio" id="northeast" name="region" value="1">
+      <label for="northeast">Northeast</label><br>
+      <input type="radio" id="midwest" name="region" value="2">
+      <label for="midwest">Midwest</label><br>
+      <input type="radio" id="south" name="region" value="3">
+      <label for="south">South</label><br>
+      <input type="radio" id="west" name="region" value="4">
+      <label for="west">West</label><br>
 
     <!-- NEWSINT -->
     <div>
       <p>Some people seem to follow what's going on in government and public affairs most of the time, whether there's an election going on or not. Others aren't that interested. Would you say you follow what's going on in government and public affairs...</p>
-        <input type="radio" id="mostofthetime" name="newsint" value="mostofthetime">
+        <input type="radio" id="mostofthetime" name="newsint" value="1">
           <label for="mostofthetime">Most of the time</label><br>
-        <input type="radio" id="someofthetime" name="newsint" value="someofthetime">
+        <input type="radio" id="someofthetime" name="newsint" value="2">
           <label for="someofthetime">Some of the time</label><br>
-        <input type="radio" id="nowandthen" name="newsint" value="nowandthen">
+        <input type="radio" id="nowandthen" name="newsint" value="3">
           <label for="nowandthen">Only now and then</label><br>
-        <input type="radio" id="hardlyatall" name="newsint" value="hardlyatall">
+        <input type="radio" id="hardlyatall" name="newsint" value="4">
           <label for="hardlyatall">Hardly at all</label><br>
     </div>
 
     <!-- TRACK_PRE -->
     <div>
       <p>Generally speaking, would you say things in the country are going in the right direction, or are they off on the wrong track?</p>
-        <input type="radio" id="rightdir" name="track_pre" value="rightdir">
+        <input type="radio" id="rightdir" name="track_pre" value="right track">
           <label for="rightdir">Right direction</label><br>
-        <input type="radio" id="wrongdir" name="track_pre" value="wrongdir">
+        <input type="radio" id="wrongdir" name="track_pre" value="wrong track">
           <label for="wrongdir">Wrong track</label><br>
-        <input type="radio" id="notsure" name="track_pre" value="notsure">
+        <input type="radio" id="notsure" name="track_pre" value="not sure">
           <label for="notsure">I'm not sure</label><br>
     </div>
-    <!-- pid_7_pre -->
+
+    <!-- PID_7_PRE -->
     <div>
       <p>On the from Democrat to Republican, with Democrat being 1 and Republican being 7, where would you place yourself?</p>
       <label for="pid_7_pre">D (1)
       <input type="range" id="pid_7_pre" name="pid_7_pre" min="1" max="7" step="1">R (7)</label>
     </div>
 
-    <!-- ideo_5_pre -->
+    <!-- IDEO5_PRE -->
     <div>
       <p>Political ideology is often thought of as being a spectrum from left to right. What point do you think lies closest to your views?</p>
-      <label for="ideo_5_pre">L (1)
-      <input type="range" id="ideo_5_pre" name="ideo_5_pre" min="1" max="5" step="1">R (5)</label>
+      <label for="ideo5_pre">L (1)
+      <input type="range" id="ideo5_pre" name="ideo5_pre" min="1" max="5" step="1">R (5)</label>
     </div>
 
-    <!-- Submit -->
+    <!-- SUBMIT -->
     <div>
       <input type="submit" name="submit">
     </div>
