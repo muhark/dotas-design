@@ -103,33 +103,34 @@ class maximal_allocation:
         pred_frame[:, self.treat_cols] = np.identity(self.n_treats)
         return pred_frame
 
-ma_rf1 = maximal_allocation(
-    data, 'Anti Trump', 'favorDT_rev', covs, ske.RandomForestRegressor())
-ma_ab1 = maximal_allocation(
-    data, 'Anti Trump', 'favorDT_rev', covs, ske.AdaBoostRegressor())
-ma_gb1 = maximal_allocation(
-    data, 'Anti Trump', 'favorDT_rev', covs, ske.GradientBoostingRegressor())
-ma_nn1 = maximal_allocation(
-    data, 'Anti Trump', 'favorDT_rev', covs, snn.MLPRegressor())
-ma_sv1 = maximal_allocation(
-    data, 'Anti Trump', 'favorDT_rev', covs, model=svm.SVR())
+if __name__ == '__main__':
+    ma_rf1 = maximal_allocation(
+        data, 'Anti Trump', 'favorDT_rev', covs, ske.RandomForestRegressor())
+    ma_ab1 = maximal_allocation(
+        data, 'Anti Trump', 'favorDT_rev', covs, ske.AdaBoostRegressor())
+    ma_gb1 = maximal_allocation(
+        data, 'Anti Trump', 'favorDT_rev', covs, ske.GradientBoostingRegressor())
+    ma_nn1 = maximal_allocation(
+        data, 'Anti Trump', 'favorDT_rev', covs, snn.MLPRegressor())
+    ma_sv1 = maximal_allocation(
+        data, 'Anti Trump', 'favorDT_rev', covs, model=svm.SVR())
 
-models = [ma_rf1, ma_ab1, ma_gb1, ma_nn1, ma_sv1]
+    models = [ma_rf1, ma_ab1, ma_gb1, ma_nn1, ma_sv1]
 
-ad_assignments = pd.concat([ma_rf1.df.loc[:, ma_rf1.treat_cols].sum(
-)] + [m.best_ads.value_counts() for m in models], sort=True, axis=1).fillna(0)
-ad_assignments = ad_assignments.rename(dict(zip(range(0, 6), [
-                                       'Base', 'RF', 'AdaBoost', 'GradBoost', 'MLP-NN', 'SVM'])), axis=1).astype(int)
-dict(zip(['Base', 'RF', 'AdaBoost', 'GradBoost', 'MLP-NN', 'SVM'],
-         [ma_rf1.df['favorDT_rev'].mean()] + [m.ma_outcome.mean() for m in models]))
+    ad_assignments = pd.concat([ma_rf1.df.loc[:, ma_rf1.treat_cols].sum(
+    )] + [m.best_ads.value_counts() for m in models], sort=True, axis=1).fillna(0)
+    ad_assignments = ad_assignments.rename(dict(zip(range(0, 6), [
+                                           'Base', 'RF', 'AdaBoost', 'GradBoost', 'MLP-NN', 'SVM'])), axis=1).astype(int)
+    dict(zip(['Base', 'RF', 'AdaBoost', 'GradBoost', 'MLP-NN', 'SVM'],
+             [ma_rf1.df['favorDT_rev'].mean()] + [m.ma_outcome.mean() for m in models]))
 
-# Pickle fitted rf model.
+    # Pickle fitted rf model.
 
-for model, fname in zip(models, ['RF', 'AdaBoost', 'GradBoost', 'MLP-NN', 'SVM']):
-    dump(model, f'{fname}.joblib')
+    for model, fname in zip(models, ['RF', 'AdaBoost', 'GradBoost', 'MLP-NN', 'SVM']):
+        dump(model, f'{fname}.joblib')
 
-for model, fname in zip(models, ['rf1', 'ab1', 'gb1', 'nn1', 'sv1']):
-    dump(model.fitted_model, f'prefitted/{fname}.joblib')
+    for model, fname in zip(models, ['rf1', 'ab1', 'gb1', 'nn1', 'sv1']):
+        dump(model.fitted_model, f'prefitted/{fname}.joblib')
 
 
 # Speed testing

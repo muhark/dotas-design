@@ -8,11 +8,10 @@ $postVars = array(
   'gender',
   'race',
   'income',
-  'region',
   'newsint',
   'track_pre',
   'pid_7_pre',
-  'ideo5_pre'
+  'ideo_5_pre'
 );
 
 $postData = array();
@@ -46,7 +45,7 @@ echo $response;
 - newsint
 - track_pre
 - pid_7_pre
-- ideo5_pre
+- ideo_5_pre
  -->
 
 

@@ -10,20 +10,10 @@ ADS_VEC = ['ad_id_fac_26', 'ad_id_fac_27', 'ad_id_fac_33', 'ad_id_fac_38',
        'ad_id_fac_75', 'ad_id_fac_77', 'ad_id_fac_8', 'ad_id_fac_99']
 
 # Load model
-model = load("../model/rf1.joblib")
+model = load("../model/prefitted/rf1.joblib")
 
 # Parse input data
-# req = {
-#     "birthyear": ["2003"],
-#     "gender": ["1"],
-#     "race": ["1"],
-#     "income": ["1"],
-#     "region": ["4"],
-#     "newsint": ["1"],
-#     "track_pre": ["notsure"],
-#     "pid_7_pre": ["1"],
-#     "ideo5_pre": ["4"]
-# }
+req = {"birthyear": ["1960"], "gender": ["1"], "race": ["1"], "income": ["4"], "region": ["4"], "newsint": ["2"], "track_pre": ["wrong track"], "pid_7_pre": ["7"], ideo5_pre": ["5"]}
 
 def rand_optimum(a, method='min'):
     """
