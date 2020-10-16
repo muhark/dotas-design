@@ -9,11 +9,15 @@ ADS_VEC = ['ad_id_fac_26', 'ad_id_fac_27', 'ad_id_fac_33', 'ad_id_fac_38',
        'ad_id_fac_66', 'ad_id_fac_68', 'ad_id_fac_70', 'ad_id_fac_71',
        'ad_id_fac_75', 'ad_id_fac_77', 'ad_id_fac_8', 'ad_id_fac_99']
 
+ADS_MAP = {
+    'ad_id_fac_4': 'ad1.mp4'
+}
+
 # Load model
 model = load("../model/prefitted/rf1.joblib")
 
 # Parse input data
-req = {"birthyear": ["1960"], "gender": ["1"], "race": ["1"], "income": ["4"], "region": ["4"], "newsint": ["2"], "track_pre": ["wrong track"], "pid_7_pre": ["7"], "ideo5_pre": ["5"]}
+req = {"age": ["60"], "gender": ["1"], "race": ["1"], "income": ["4"], "region": ["4"], "newsint": ["2"], "track_pre": ["wrong track"], "pid_7_pre": ["7"], "ideo5_pre": ["5"]}
 
 def rand_optimum(a, method='min'):
     """
@@ -34,7 +38,7 @@ def parse_input(req):
     """
     Parses JSON data transmitted by survey form.
     """
-    age = np.array([2020 - np.float64(req['birthyear'][0])])
+    age = np.array([np.float64(req['age'][0])])
     female_pre = np.array([np.float64(req['gender'][0])])
     ideo5_pre = np.array([np.float64(req['ideo5_pre'][0])])
     income3 = np.array([np.float64(req['income'][0])])

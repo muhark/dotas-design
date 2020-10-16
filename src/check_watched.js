@@ -1,60 +1,3 @@
-<!DOCTYPE html>
-<html>
-<body>
-
-<?php
-$postVars = array(
-  'age',
-  'gender',
-  'race',
-  'income',
-  'region',
-  'newsint',
-  'track_pre',
-  'pid_7_pre',
-  'ideo5_pre'
-);
-
-$postData = array();
-
-foreach($postVars as $name){
-  if(isset($_POST[$name])){
-    echo $_POST[$name];
-    $postData[$name] = $_POST[$name];
-  }
-}
-
-
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, "http://127.0.0.1:8889/testpredict");
-curl_setopt($ch, CURLOPT_POST, 1);
-curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
-curl_setopt($ch, CURLLOPT_RETURNTRANSFER, true);
-$response = curl_exec($ch);
-curl_close($ch);
-
-echo $response['body'];
-$ad_choice = $response['body'];
-
-
-?>
-
-<video width="480" height="400" controls="true" poster="" id="video">
-    <source type="video/mp4" src="ad1.mp4"></source>
-</video>
-
-<div id="status" class="incomplete">
-<span>Play status: </span>
-<span class="status complete">COMPLETE</span>
-<span class="status incomplete">INCOMPLETE</span>
-<br/>
-</div>
-<div>
-<span id="played">0</span> seconds out of
-<span id="duration"></span> seconds. (only updates when the video pauses)
-</div>
-
-<script>
 var video = document.getElementById("video");
 
 var timeStarted = -1;
@@ -98,7 +41,3 @@ video.addEventListener("playing", videoStartedPlaying);
 
 video.addEventListener("ended", videoStoppedPlaying);
 video.addEventListener("pause", videoStoppedPlaying);
-</script>
-
-</body>
-</html>

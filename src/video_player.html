@@ -40,7 +40,7 @@ function videoStoppedPlaying(event) {
   if(timeStarted>0) {
     var playedFor = new Date().getTime()/1000 - timeStarted;
     timeStarted = -1;
-    // add the new ammount of seconds played
+    // add the new amount of seconds played
     timePlayed+=playedFor;
   }
   document.getElementById("played").innerHTML = Math.round(timePlayed)+"";
