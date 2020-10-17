@@ -19,7 +19,7 @@ $postData = array();
 
 foreach($postVars as $name){
   if(isset($_POST[$name])){
-    echo $_POST[$name];
+    // echo $_POST[$name];
     $postData[$name] = $_POST[$name];
   }
 }
@@ -29,21 +29,25 @@ $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, "http://127.0.0.1:8889/testpredict");
 curl_setopt($ch, CURLOPT_POST, 1);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
-curl_setopt($ch, CURLLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 $response = curl_exec($ch);
 curl_close($ch);
 
-echo $response['body'];
-$ad_choice = $response['body'];
+// echo json_decode($response);
+echo var_dump(json_decode($response));
 
-
+$ad_choice = json_decode($response);
+echo $ad_choice->best_ad;
 ?>
 
+
+<p>The response body has been set to: <?php echo $ad_choice->best_ad; ?>, and that is all.</p>
+
 <video width="480" height="400" controls="true" poster="" id="video">
-    <source type="video/mp4" src="ad1.mp4"></source>
+    <source type="video/mp4" src="/<?php echo $ad_choice->best_ad; ?>"></source>
 </video>
 
-<div id="status" class="incomplete">
+<!-- <div id="status" class="incomplete">
 <span>Play status: </span>
 <span class="status complete">COMPLETE</span>
 <span class="status incomplete">INCOMPLETE</span>
@@ -98,7 +102,7 @@ video.addEventListener("playing", videoStartedPlaying);
 
 video.addEventListener("ended", videoStoppedPlaying);
 video.addEventListener("pause", videoStoppedPlaying);
-</script>
+</script> -->
 
 </body>
 </html>
