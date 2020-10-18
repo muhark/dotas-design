@@ -2,6 +2,7 @@
 <html>
 <body>
 
+<!-- Jupyter Interaction -->
 <?php
 $postVars = array(
   'age',
@@ -33,32 +34,51 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 $response = curl_exec($ch);
 curl_close($ch);
 
-// echo json_decode($response);
-echo var_dump(json_decode($response));
+// echo var_dump(json_decode($response));
 
 $ad_choice = json_decode($response);
-echo $ad_choice->best_ad;
+// echo $ad_choice->best_ad;
 ?>
 
+<!-- TITLE -->
+  <div class="sv-title sv-container-modern__title">
+    <div class="sv-header__text">
+      <h3>
+        <span style="position: static;">Political Ads Survey</span>
+      </h3>
+      <h5>
+        <span style="position: static;"></span>
+      </h5>
+    </div>
+  </div>
 
-<p>The response body has been set to: <?php echo $ad_choice->best_ad; ?>, and that is all.</p>
+<!-- SUBTITLE AND BRIEF -->
+  <div id="sp_100">
+    <div class="sv-page sv-body__page">
+      <h4 class="sv-title sv-page__title">
+        <span style="position: static;">Short Political Advertisement</span>
+      </h4>
+      <div class="sv-description sv-page__description">
+        <span style="position: static;">Please watch this video from beginning to end, without skipping ahead. Once the video has been watched, the option to proceed to the next page will become available.</span>
+      </div>
 
-<video width="480" height="400" controls="true" poster="" id="video">
+<video width="480" height="400" controls="false" poster="" id="video">
     <source type="video/mp4" src="/<?php echo $ad_choice->best_ad; ?>"></source>
 </video>
 
-<!-- <div id="status" class="incomplete">
-<span>Play status: </span>
-<span class="status complete">COMPLETE</span>
-<span class="status incomplete">INCOMPLETE</span>
-<br/>
+<div id="status" class="incomplete">
+  <span>Play status: </span>
+  <span class="status complete">COMPLETE</span>
+  <span class="status incomplete">INCOMPLETE</span>
+  <br/>
 </div>
 <div>
-<span id="played">0</span> seconds out of
-<span id="duration"></span> seconds. (only updates when the video pauses)
+  <span id="played">0</span> seconds out of
+  <span id="duration"></span> seconds. (only updates when the video pauses)
 </div>
 
 <script>
+// Script adapted from SO
 var video = document.getElementById("video");
 
 var timeStarted = -1;
@@ -102,7 +122,7 @@ video.addEventListener("playing", videoStartedPlaying);
 
 video.addEventListener("ended", videoStoppedPlaying);
 video.addEventListener("pause", videoStoppedPlaying);
-</script> -->
+</script>
 
 </body>
 </html>
