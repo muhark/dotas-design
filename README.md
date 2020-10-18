@@ -5,11 +5,11 @@ This repository contains the code for a dynamic survey experiment, used in my DP
 
 # PROJECT STATUS
 
-**INCOMPLETE**
+Stage: **DEV**
 
 Days to election: **15**
 
-## Survey Website
+# DEV CHECKLIST
 
 - Front-end
     - [ ] CSS/Styling
