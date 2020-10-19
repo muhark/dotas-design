@@ -9,6 +9,27 @@
 </head>
 
 <body>
+<?php
+// Read _GET variable
+$awsVars = array(
+  'assignmentId',
+  'hitId',
+  'workerId'
+);
+
+$awsData = array();
+
+foreach($awsVars as $name){
+  if(isset($_GET[$name])){
+    echo $name . " is set to " . $_GET[$name] . "<br>";
+    $awsData[$name] = $_GET[$name];
+  } else {
+    echo $name . " is unset<br>";
+    $awsData[$name] = "placeholder_" . $name;
+  }
+}
+?>
+
 
   <!-- TITLE -->
 
@@ -48,7 +69,11 @@
             Please note, your answers on this page will be stored separately so that your name is not directly linked to the answers you give in the data.
           </p>
         </div>
-        <form action="consent.php" target="_self">
+        <form method="post" action="
+        <?php
+        echo "/components/consent-interstitial.php?assignmentId=" . $awsData['assignmentId'] . "&hitId=" . $awsData['hitId'] . "&=" . $awsData['workerId'];
+        ?>" target="_self">
+
           <ol type="1">
             <li> <input type="checkbox" id="consent1" name="consent1" value="1"><label for="consent1">I confirm that I have read and understand the information sheet version 1 dated 15 October 2020 for the above study. I have had the opportunity to
                 consider the information, ask questions and have had these answered satisfactorily.</label>
