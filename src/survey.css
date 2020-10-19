@@ -48,9 +48,16 @@
   font-weight: 700;
   src: local("Raleway Bold"), local("Raleway-Bold"), url(https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwJYtWqZPBg.woff) format("woff"); }
 
+body {
+  font-family: Amazon Ember,Helvetica Neue,Roboto,Arial,sans-serif;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+
 .sv-visuallyhidden {
   position: absolute;
-  height: 1px;
+  height: 1pv;
   width: 1px;
   overflow: hidden;
   clip: rect(1px 1px 1px 1px);
