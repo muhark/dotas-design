@@ -4,7 +4,11 @@ import sklearn.ensemble as ske
 import sklearn.neural_network as snn
 import sklearn.svm as svm
 from joblib import dump
+# from numpy.random import MT19937, RandomState, SeedSequence
 
+# Turns out this is better practice, but I learned that too late
+# for reproducibility
+# rs = RandomState(MT19937(SeedSequence(634)))
 np.random.seed(634)
 
 # Part of the goal here is to decide which script performs best.
