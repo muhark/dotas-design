@@ -44,8 +44,8 @@ foreach($awsVars as $name){
     </detailed-instructions>
   </crowd-instructions>
 
+<div id="surveyContainer" class="sv-root-modern">
   <!-- TITLE -->
-
   <div class="sv-title sv-container-modern__title">
     <div class="sv-header__text">
       <h3>
@@ -75,7 +75,6 @@ foreach($awsVars as $name){
         <?php
         echo "/components/treatment.php?assignmentId=" . $awsData['assignmentId'] . "&hitId=" . $awsData['hitId'] . "&=" . $awsData['workerId'];
         ?>" target="_self">
-      <form action="submit_page1.php" method="post" target=_self>
 
         <!-- AGE -->
       <div class="sv-row sv-clearfix">
@@ -630,16 +629,6 @@ foreach($awsVars as $name){
                 </label>
               </div>
 
-            <div style="display: none;">
-              <div>
-                <!--ko if: !question.isReadOnlyRenderDiv() -->
-                <!--ko if: !question.isInputTextUpdate -->
-                <textarea type="text" aria-label="Political ideology is often thought of as being a spectrum from left to right. What point do you think lies closest to your views?" style="display: none;"></textarea>
-              </div>
-            </div><!-- /ko -->
-            <div class="sv-description sv-question__description" style="display: none;">
-              <span style="position: static;"></span>
-            </div>
           </div>
         </div><!-- /ko -->
       </div>
@@ -649,6 +638,7 @@ foreach($awsVars as $name){
       <input type="submit" value="Submit" class="sv-btn sv-footer__complete-btn">
   </div>
 </form>
+</div>
 </body>
 
 </html>
