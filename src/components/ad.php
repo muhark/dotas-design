@@ -9,9 +9,6 @@
 </head>
 <body>
 
-<?php
-// Read in assigned ad variable from previous page.
-?>
   <!-- TITLE -->
   <div class="sv-title sv-container-modern__title">
     <div class="sv-header__text">
@@ -39,26 +36,29 @@
         </source>
       </video>
 
-      <div id="status" class="incomplete">
-        <span>Play status: </span>
-        <span class="status complete">COMPLETE</span>
-        <span class="status incomplete">INCOMPLETE</span>
-        <br />
-      </div>
       <div>
         <span id="played">0</span> seconds out of
-        <span id="duration"></span> seconds. (only updates when the video pauses)
+        <span id="duration"></span> seconds. (This updates when the video is paused).
       </div>
     </div>
+  <div id="nextButton">
+    <form method="post" action="
+      <?php
+      echo "/components/ad.php?assignmentId=" . $awsData['assignmentId'] . "&hitId=" . $awsData['hitId'] . "&=" . $awsData['workerId'];
+      ?>" target="_self">
+      <input type="hidden" name="video" value="<?php echo $video; ?>" />
+      <div data-bind="css: css.footer" class="sv-footer sv-body__footer sv-clearfix">
+          <input type="submit" value="Continue" class="sv-btn sv-footer__complete-btn">
+      </div>
+    </form>
+  </div>
+
   </div>
 <script>
-// First make the treatment prompt appear
-// TODO: Receive treatment indicator from
-
-
-
 // Script adapted from SO
 var video = document.getElementById("video");
+var nxtbtn = document.getElementById("nextButton");
+nextButton.style.display = "none"
 
 var timeStarted = -1;
 var timePlayed = 0;
@@ -87,7 +87,7 @@ function videoStoppedPlaying(event) {
   // Count as complete only if end of video was reached
   if(timePlayed>=duration && event.type=="ended") {
     document.getElementById("status").className="complete";
-    TODO: Make "next" button appear.
+    nextButton.style.display = "block";
   }
 }
 

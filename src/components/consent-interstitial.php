@@ -24,10 +24,10 @@ $postVars = array(
 foreach($awsVars as $name){
   if(isset($_GET[$name])){
     // echo $name . " is set to " . $_GET[$name] . "<br>";
-    $dbData[$name] = $_GET[$name];
+    $awsData[$name] = $_GET[$name];
   } else {
     // echo $name . " is unset"<br>;
-    $dbData[$name] = "placeholder_" . $name;
+    $awsData[$name] = "placeholder_" . $name;
   }
 }
 
@@ -43,23 +43,6 @@ $servername = "localhost";
 $username = $ini_array['username'];
 $password = $ini_array['password'];
 $dbname = $ini_array['dbname'];
-// $sql = "INSERT INTO test_consent" .
-// "(assignmentId, hitId, workerId, consent1, consent2, consent3, consent4, consent5, consent6, consent7, consent8, consent9)" .
-// "VALUES ('" .
-//   $dbData['assignmentId'] . "', '" .
-//   $dbData['hitId'] . "', '" .
-//   $dbData['workerId'] . "', " .
-//   $dbData['consent1'] . ", " .
-//   $dbData['consent2'] . ", " .
-//   $dbData['consent3'] . ", " .
-//   $dbData['consent4'] . ", " .
-//   $dbData['consent5'] . ", " .
-//   $dbData['consent6'] . ", " .
-//   $dbData['consent7'] . ", " .
-//   $dbData['consent8'] . ", " .
-//   $dbData['consent9'] . ");";
-//
-// echo $sql;
 
 try {
   // Initiate new connection
@@ -86,9 +69,9 @@ try {
   $stmt->bindParam(':consent9', $consent9);
 
   // Insert row
-  $assignmentId = $dbData['assignmentId'];
-  $hitId = $dbData['hitId'];
-  $workerId = $dbData['workerId'];
+  $assignmentId = $awsData['assignmentId'];
+  $hitId = $awsData['hitId'];
+  $workerId = $awsData['workerId'];
   $consent1 = $dbData['consent1'];
   $consent2 = $dbData['consent2'];
   $consent3 = $dbData['consent3'];
@@ -106,6 +89,6 @@ try {
 
 $conn = null;
 
-$nextPage = "/components/pretreatment.php?assignmentId=" . $dbData['assignmentId'] . "&hitId=" . $dbData['hitId'] . "&=" . $dbData['workerId'];
+$nextPage = "/components/pretreatment.php?assignmentId=" . $awsData['assignmentId'] . "&hitId=" . $awsData['hitId'] . "&=" . $awsData['workerId'];
 header("Location: " . $nextPage);
 ?>
