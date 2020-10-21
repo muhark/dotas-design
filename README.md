@@ -7,7 +7,7 @@ This repository contains the code for a dynamic survey experiment, used in my DP
 
 Stage: **DEV**
 
-Days to election: **13**
+Days to election: **12**
 
 # DEV CHECKLIST
 
@@ -15,17 +15,18 @@ Days to election: **13**
     - [x] CSS
     - [ ] Styling
     - Pages
-        - [ ] Entry
+        - [ ] MTurk Portal
         - [x] Consent
         - [x] Pre-treatment
-        - [ ] Treatment
+        - [x] Treatments
+        - [ ] Video
         - [ ] Post-treatment
         - [ ] Thank-you/Payment
 - Back-end
     - [x] Database connection
-    - [ ] Treatment page PHP scripting
+    - [x] Treatment page PHP scripting
     - [x] Jupyter kernel/ML back-end
-    - [ ] Mode-switch train/predict
+    - [x] Mode-switch train/predict
 - MTurk Interactivity
     - [x] UUID forwarding
     - [ ] Payment code processing
