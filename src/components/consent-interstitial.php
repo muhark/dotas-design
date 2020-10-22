@@ -2,13 +2,15 @@
 <html>
 
 <?php
-// Parse GET and POST data
+// Parse GET uuid
+if(isset($_GET['userid'])){
+  $uuid = $_GET['userid'];
+} else {
+  echo "<h1>User ID is not set! Please return to the <a href="/components/consent.php">first page</a> of the survey otherwise your answers may not be recorded and you may not be paid.</h1>"
+}
+
+// Parse Consent Form
 $dbData = array();
-$awsVars = array(
-  'assignmentId',
-  'hitId',
-  'workerId'
-);
 $postVars = array(
   'consent1',
   'consent2',
@@ -20,16 +22,6 @@ $postVars = array(
   'consent8',
   'consent9',
 );
-
-foreach($awsVars as $name){
-  if(isset($_GET[$name])){
-    // echo $name . " is set to " . $_GET[$name] . "<br>";
-    $awsData[$name] = $_GET[$name];
-  } else {
-    // echo $name . " is unset"<br>;
-    $awsData[$name] = "placeholder_" . $name;
-  }
-}
 
 foreach($postVars as $name){
   if(isset($_POST[$name])){
@@ -53,11 +45,9 @@ try {
 
   // Prepare SQL and bind parameters
   $stmt = $conn->prepare("INSERT INTO test_consent" .
-  "(assignmentId, hitId, workerId, consent1, consent2, consent3, consent4, consent5, consent6, consent7, consent8, consent9)" .
-  "VALUES (:assignmentId, :hitId, :workerId, :consent1, :consent2, :consent3, :consent4, :consent5, :consent6, :consent7, :consent8, :consent9)");
-  $stmt->bindParam(':assignmentId', $assignmentId);
-  $stmt->bindParam(':hitId', $hitId);
-  $stmt->bindParam(':workerId', $workerId);
+  "(userid, consent1, consent2, consent3, consent4, consent5, consent6, consent7, consent8, consent9)" .
+  "VALUES (:userid, :hitId, :workerId, :consent1, :consent2, :consent3, :consent4, :consent5, :consent6, :consent7, :consent8, :consent9)");
+  $stmt->bindParam(':userid', $userid);
   $stmt->bindParam(':consent1', $consent1);
   $stmt->bindParam(':consent2', $consent2);
   $stmt->bindParam(':consent3', $consent3);
@@ -69,9 +59,7 @@ try {
   $stmt->bindParam(':consent9', $consent9);
 
   // Insert row
-  $assignmentId = $awsData['assignmentId'];
-  $hitId = $awsData['hitId'];
-  $workerId = $awsData['workerId'];
+  $userid = $uuid;
   $consent1 = $dbData['consent1'];
   $consent2 = $dbData['consent2'];
   $consent3 = $dbData['consent3'];
@@ -89,6 +77,6 @@ try {
 
 $conn = null;
 
-$nextPage = "/components/pretreatment.php?assignmentId=" . $awsData['assignmentId'] . "&hitId=" . $awsData['hitId'] . "&=" . $awsData['workerId'];
+$nextPage = "/components/pretreatment.php?userid=" . $uuid;
 header("Location: " . $nextPage);
 ?>

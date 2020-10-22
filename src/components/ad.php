@@ -8,6 +8,14 @@
   <link rel="stylesheet" href="/survey.css" type="text/css">
 </head>
 <body>
+<?php
+// Parse GET uuid
+if(isset($_GET['userid'])){
+  $uuid = $_GET['userid'];
+} else {
+  echo "<h1>User ID is not set! Please return to the <a href="/components/consent.php">first page</a> of the survey otherwise your answers may not be recorded and you may not be paid.</h1>"
+}
+?>
 
   <!-- TITLE -->
   <div class="sv-title sv-container-modern__title">
@@ -44,9 +52,8 @@
   <div id="nextButton">
     <form method="post" action="
       <?php
-      echo "/components/ad.php?assignmentId=" . $awsData['assignmentId'] . "&hitId=" . $awsData['hitId'] . "&=" . $awsData['workerId'];
+      echo "/components/posttreatment.php?userid=" . $uuid;
       ?>" target="_self">
-      <input type="hidden" name="video" value="<?php echo $video; ?>" />
       <div data-bind="css: css.footer" class="sv-footer sv-body__footer sv-clearfix">
           <input type="submit" value="Continue" class="sv-btn sv-footer__complete-btn">
       </div>

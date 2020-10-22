@@ -10,24 +10,8 @@
 
 <body>
 <?php
-// Read _GET variable
-$awsVars = array(
-  'assignmentId',
-  'hitId',
-  'workerId'
-);
-
-$awsData = array();
-
-foreach($awsVars as $name){
-  if(isset($_GET[$name])){
-    echo $name . " is set to " . $_GET[$name] . "<br>";
-    $awsData[$name] = $_GET[$name];
-  } else {
-    echo $name . " is unset<br>";
-    $awsData[$name] = "placeholder_" . $name;
-  }
-}
+// Generate UUID
+$uuid = uuid_create(UUID_TYPE_RANDOM);
 ?>
 
 
@@ -71,7 +55,7 @@ foreach($awsVars as $name){
         </div>
         <form method="post" action="
         <?php
-        echo "/components/consent-interstitial.php?assignmentId=" . $awsData['assignmentId'] . "&hitId=" . $awsData['hitId'] . "&=" . $awsData['workerId'];
+        echo "/components/consent-interstitial.php?userid=" . $uuid;
         ?>" target="_self">
 
           <ol type="1">
