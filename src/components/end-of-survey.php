@@ -11,25 +11,21 @@
 
 <body>
 <?php
-// Parse GET and POST data
+// Generate completion code
+$ccode = uuid_create(UUID_TYPE_RANDOM);
+
+// Parse GET uuid
+if(isset($_GET['userid'])){
+  $uuid = $_GET['userid'];
+} else {
+  echo "<h1>User ID is not set! Please return to the <a href='/components/consent.php'>first page</a> of the survey otherwise your answers may not be recorded and you may not be paid.</h1>";
+}
+// Parse POST data
 $dbData = array();
-$awsVars = array(
-  'assignmentId',
-  'hitId',
-  'workerId'
-);
 $postVars = array(
   'favorJB_rev',
   'general_vote'
 );
-
-foreach($awsVars as $name){
-  if(isset($_GET[$name])){
-    $awsData[$name] = $_GET[$name];
-  } else {
-    $awsData[$name] = "placeholder_" . $name;
-  }
-}
 
 foreach($postVars as $name){
   if(isset($_POST[$name])){
@@ -53,20 +49,18 @@ try {
 
   // Prepare SQL and bind parameters
   $stmt = $conn->prepare("INSERT INTO test_post" .
-  "(assignmentId, hitId, workerId, favorJB_rev, general_vote)" .
-  "VALUES (:assignmentId, :hitId, :workerId, :favorJB_rev, :general_vote)");
-  $stmt->bindParam(':assignmentId', $assignmentId);
-  $stmt->bindParam(':hitId', $hitId);
-  $stmt->bindParam(':workerId', $workerId);
+  "(userid, favorJB_rev, general_vote, completion_code)" .
+  "VALUES (:userid, :favorJB_rev, :general_vote, :completion_code)");
+  $stmt->bindParam(':userid', $userid);
   $stmt->bindParam(':favorJB_rev', $favorJB_rev);
   $stmt->bindParam(':general_vote', $general_vote);
+  $stmt->bindParam(':completion_code', $complete_code);
 
   // Insert row
-  $assignmentId = $awsData['assignmentId'];
-  $hitId = $awsData['hitId'];
-  $workerId = $awsData['workerId'];
+  $userid = $uuid;
   $favorJB_rev = $dbData['favorJB_rev'];
   $general_vote = $dbData['general_vote'];
+  $complete_code = $ccode;
   $stmt->execute();
 
 } catch(PDOException $e) {
@@ -96,7 +90,7 @@ $email = "musashi.harukawa@politics.ox.ac.uk";
       <h4 class="sv-title sv-page__title">Thank you!</h4>
       <div class="sv-description sv-page__description">
         <p>You have now completed the survey.</p>
-        <p>Please click on the link below, which will redirect you back to the MTurk portal where this task will be marked as completed and you will receive payment.</p>
+        <p>Your unique completion code is: <em><?php echo $ccode; ?></em>. It may take me a bit of time to verify your responses, but you should receive payment within 3 days of completing this task.</p>
         <p>If you have further questions about the survey, payment, or change your mind regarding consent, please contact me at <?php echo $email; ?></p>
       </div>
     </div>

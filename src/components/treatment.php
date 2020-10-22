@@ -10,24 +10,13 @@
 <body>
 
 <?php
-// Read _GET variable
-$awsVars = array(
-  'assignmentId',
-  'hitId',
-  'workerId'
-);
-
-$awsData = array();
-
-foreach($awsVars as $name){
-  if(isset($_GET[$name])){
-    // echo $name . " is set to " . $_GET[$name] . "<br>";
-    $awsData[$name] = $_GET[$name];
-  } else {
-    // echo $name . " is unset<br>";
-    $awsData[$name] = "placeholder_" . $name;
-  }
+// Parse GET uuid
+if(isset($_GET['userid'])){
+  $uuid = $_GET['userid'];
+} else {
+  echo "<h1>User ID is not set! Please return to the <a href='/components/consent.php'>first page</a> of the survey otherwise your answers may not be recorded and you may not be paid.</h1>";
 }
+
 // Jupyter interaction
 // First construct array of form data
 $postVars = array(
@@ -86,11 +75,9 @@ try {
 
   // Prepare SQL and bind parameters
   $stmt = $conn->prepare("INSERT INTO test_pre" .
-  "(assignmentId, hitId, workerId, age, gender, race, income, region, newsint, track_pre, pid_7_pre, ideo5_pre)" .
-  "VALUES (:assignmentId, :hitId, :workerId, :age, :gender, :race, :income, :region, :newsint, :track_pre, :pid_7_pre, :ideo5_pre)");
-  $stmt->bindParam(':assignmentId', $assignmentId);
-  $stmt->bindParam(':hitId', $hitId);
-  $stmt->bindParam(':workerId', $workerId);
+  "(userid, age, gender, race, income, region, newsint, track_pre, pid_7_pre, ideo5_pre)" .
+  "VALUES (:userid, :age, :gender, :race, :income, :region, :newsint, :track_pre, :pid_7_pre, :ideo5_pre)");
+  $stmt->bindParam(':userid', $userid);
   $stmt->bindParam(':age', $age);
   $stmt->bindParam(':gender', $gender);
   $stmt->bindParam(':race', $race);
@@ -102,9 +89,7 @@ try {
   $stmt->bindParam(':ideo5_pre', $ideo5_pre);
 
   // Insert row
-  $assignmentId = $awsData['assignmentId'];
-  $hitId = $awsData['hitId'];
-  $workerId = $awsData['workerId'];
+  $userid = $uuid;
   $age = $dbData['age'];
   $gender = $dbData['gender'];
   $race = $dbData['race'];
@@ -123,7 +108,7 @@ try {
 $conn = null;
 
 // Generate briefing page
-$briefURL = "/home/" . get_current_user() . "/Dev/dotas-design/briefs/" . $brief . ".html";
+$briefURL = "/home/" . get_current_user() . "/dotas-design/briefs/" . $brief . ".html";
 $briefContent = readfile($briefURL);
 echo $briefContent;
 
@@ -131,7 +116,7 @@ echo $briefContent;
 
 <form method="post" action="
   <?php
-  echo "/components/ad.php?assignmentId=" . $awsData['assignmentId'] . "&hitId=" . $awsData['hitId'] . "&=" . $awsData['workerId'];
+  echo "/components/ad.php?userid=" . $uuid;
   ?>" target="_self">
   <input type="hidden" name="video" value="<?php echo $video; ?>" />
   <div data-bind="css: css.footer" class="sv-footer sv-body__footer sv-clearfix">

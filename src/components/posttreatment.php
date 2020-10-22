@@ -12,23 +12,11 @@
 
 <body>
 <?php
-// Read _GET variable
-$awsVars = array(
-  'assignmentId',
-  'hitId',
-  'workerId'
-);
-
-$awsData = array();
-
-foreach($awsVars as $name){
-  if(isset($_GET[$name])){
-    // echo $name . " is set to " . $_GET[$name] . "<br>";
-    $awsData[$name] = $_GET[$name];
-  } else {
-    // echo $name . " is unset<br>";
-    $awsData[$name] = "placeholder_" . $name;
-  }
+// Parse GET uuid
+if(isset($_GET['userid'])){
+  $uuid = $_GET['userid'];
+} else {
+  echo "<h1>User ID is not set! Please return to the <a href='/components/consent.php'>first page</a> of the survey otherwise your answers may not be recorded and you may not be paid.</h1>";
 }
 ?>
 
@@ -60,7 +48,7 @@ foreach($awsVars as $name){
 
     <div id="surveyContent">
       <form method="post" action="
-      <?php echo "/components/end-of-survey.php?assignmentId=" . $awsData['assignmentId'] . "&hitId=" . $awsData['hitId'] . "&=" . $awsData['workerId'];
+      <?php echo "/components/end-of-survey.php?userid=" . $uuid;
       ?>" target="_self">
 
         <!-- Favorability favorJB_rev -->
