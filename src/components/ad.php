@@ -13,7 +13,7 @@
 if(isset($_GET['userid'])){
   $uuid = $_GET['userid'];
 } else {
-  echo "<h1>User ID is not set! Please return to the <a href="/components/consent.php">first page</a> of the survey otherwise your answers may not be recorded and you may not be paid.</h1>"
+  echo "<h1>User ID is not set! Please return to the <a href='/components/consent.php'>first page</a> of the survey otherwise your answers may not be recorded and you may not be paid.</h1>";
 }
 ?>
 
@@ -93,7 +93,6 @@ function videoStoppedPlaying(event) {
   document.getElementById("played").innerHTML = Math.round(timePlayed)+"";
   // Count as complete only if end of video was reached
   if(timePlayed>=duration && event.type=="ended") {
-    document.getElementById("status").className="complete";
     nextButton.style.display = "block";
   }
 }

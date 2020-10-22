@@ -6,7 +6,7 @@
 if(isset($_GET['userid'])){
   $uuid = $_GET['userid'];
 } else {
-  echo "<h1>User ID is not set! Please return to the <a href="/components/consent.php">first page</a> of the survey otherwise your answers may not be recorded and you may not be paid.</h1>"
+  echo "<h1>User ID is not set! Please return to the <a href='/components/consent.php'>first page</a> of the survey otherwise your answers may not be recorded and you may not be paid.</h1>";
 }
 
 // Parse Consent Form
@@ -46,7 +46,7 @@ try {
   // Prepare SQL and bind parameters
   $stmt = $conn->prepare("INSERT INTO test_consent" .
   "(userid, consent1, consent2, consent3, consent4, consent5, consent6, consent7, consent8, consent9)" .
-  "VALUES (:userid, :hitId, :workerId, :consent1, :consent2, :consent3, :consent4, :consent5, :consent6, :consent7, :consent8, :consent9)");
+  "VALUES (:userid, :consent1, :consent2, :consent3, :consent4, :consent5, :consent6, :consent7, :consent8, :consent9)");
   $stmt->bindParam(':userid', $userid);
   $stmt->bindParam(':consent1', $consent1);
   $stmt->bindParam(':consent2', $consent2);
