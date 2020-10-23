@@ -12,11 +12,23 @@
 
 <body>
 <?php
-// Parse GET uuid
-if(isset($_GET['userid'])){
-  $uuid = $_GET['userid'];
-} else {
-  echo "<h1>User ID is not set! Please return to the <a href='/components/consent.php'>first page</a> of the survey otherwise your answers may not be recorded and you may not be paid.</h1>";
+// Read in prolific user data
+$userVars = array(
+  'PROLIFIC_PID',
+  'STUDY_ID',
+  'SESSION_ID'
+);
+
+$userData = array();
+
+foreach($userVars as $name){
+  if(isset($_GET[$name])){
+    echo $name . " is set to " . $_GET[$name] . "<br>";
+    $userData[$name] = $_GET[$name];
+  } else {
+    echo $name . " is unset<br>";
+    $userData[$name] = "UNSET_" . $name;
+  }
 }
 ?>
   <crowd-instructions link-text="View instructions" link-type="button">
@@ -61,7 +73,9 @@ if(isset($_GET['userid'])){
       <!-- FORM BEGINS -->
       <form method="post" action="
         <?php
-        echo "/components/treatment.php?userid=" . $uuid;
+        echo "/treatment.php?PROLIFIC_PID=" . $userData['PROLIFIC_PID'] .
+             "&STUDY_ID=" . $userData['STUDY_ID'] .
+             "&SESSION_ID=" . $userData['SESSION_ID'];
         ?>" target="_self">
 
         <!-- AGE -->
@@ -292,11 +306,11 @@ if(isset($_GET['userid'])){
         </div><!-- /ko -->
       </div>
 
+      <!-- REGION -->
       <div class="sv-row sv-clearfix">
         <div class="sv-question sv-row__question" id="sq_104" name="region" aria-labelledby="sq_104_ariaTitle" style="flex: 1 1 100%; width: 100%; min-width: 300px; max-width: initial;">
-          <!--ko template: { name: 'survey-question-title', data: question  } -->
           <div class="sv-question__header sv-question__header--location--top">
-            <h5 class="sv-title sv-question__title sv-question__title--required" aria-label="Which region of the United States do you live in?" id="sq_104_ariaTitle">
+            <h5 class="sv-title sv-question__title sv-question__title--required" id="sq_104_ariaTitle">
               <span style="position: static;" class="sv-question__num">5.</span>
               <span style="position: static;">Which region of the United States do you live in?</span>
               <span class="sv-question__required-text">*</span>
@@ -353,12 +367,9 @@ if(isset($_GET['userid'])){
       <div class="sv-row sv-clearfix">
         <div class="sv-question sv-row__question" id="sq_105" name="newsint" aria-labelledby="sq_105_ariaTitle" style="flex: 1 1 100%; width: 100%; min-width: 300px; max-width: initial;">
           <div class="sv-question__header sv-question__header--location--top">
-            <h5 class="sv-title sv-question__title sv-question__title--required"
-              aria-label="Some people seem to follow what's going on in government and public affairs most of the time, whether there's an election going on or not. Others aren't that interested. Would you say you follow what's going on in government and public affairs..."
-              id="sq_105_ariaTitle">
+            <h5 class="sv-title sv-question__title sv-question__title--required" id="sq_105_ariaTitle">
               <span style="position: static;" class="sv-question__num">6.</span>
-              <span style="position: static;">Some people seem to follow what's going on in government and public affairs most of the time, whether there's an election going on or not. Others aren't that interested.
-                Would you say you follow what's going on in government and public affairs...</span>
+              <span style="position: static;">Some people seem to follow what's going on in government and public affairs most of the time, whether there's an election going on or not. Others aren't that interested. Would you say you follow what's going on in government and public affairs...</span>
               <span class="sv-question__required-text">*</span>
             </h5>
             <div class="sv-description sv-question__description">

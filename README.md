@@ -5,17 +5,31 @@ This repository contains the code for a dynamic survey experiment, used in my DP
 
 # PROJECT STATUS
 
-Stage: **DEV**
+Stage: **TEST**
 
-Days to election: **10**
+Days to election: **9**
+
+# TEST CHECKLIST
+
+- [ ] Front-end
+    - [ ] Browser compatibility checks
+        - [ ] Video
+        - [ ] Text
+    - [ ] Bug checks
+- [ ] Back-end
+    - [ ] Database stability
+    - [ ] Stress checks
+    - [ ] Global configurability
+- [ ] Prolific Compatibility
+    - [ ] Full-lap Prolific access
 
 # DEV CHECKLIST
 
 - Front-end
     - [x] CSS
-    - [ ] Styling
+    - [x] Styling
     - Pages
-        - [x] MTurk Portal
+        - [x] Prolific Portal
         - [x] Consent
         - [x] Pre-treatment
         - [x] Treatments
@@ -27,6 +41,6 @@ Days to election: **10**
     - [x] Treatment page PHP scripting
     - [x] Jupyter kernel/ML back-end
     - [x] Mode-switch train/predict
-- MTurk Interactivity
+- Prolific Interactivity
     - [x] UUID forwarding
     - [x] Payment code processing

@@ -12,14 +12,27 @@
 <body>
 <?php
 // Generate completion code
-$ccode = uuid_create(UUID_TYPE_RANDOM);
+$ccode = "https://app.prolific.co/submissions/complete?cc=PLACEHOLDER";
 
-// Parse GET uuid
-if(isset($_GET['userid'])){
-  $uuid = $_GET['userid'];
-} else {
-  echo "<h1>User ID is not set! Please return to the <a href='/components/consent.php'>first page</a> of the survey otherwise your answers may not be recorded and you may not be paid.</h1>";
+// Read in prolific user data
+$userVars = array(
+  'PROLIFIC_PID',
+  'STUDY_ID',
+  'SESSION_ID'
+);
+
+$userData = array();
+
+foreach($userVars as $name){
+  if(isset($_GET[$name])){
+    echo $name . " is set to " . $_GET[$name] . "<br>";
+    $userData[$name] = $_GET[$name];
+  } else {
+    echo $name . " is unset<br>";
+    $userData[$name] = "UNSET_" . $name;
+  }
 }
+
 // Parse POST data
 $dbData = array();
 $postVars = array(
@@ -49,18 +62,20 @@ try {
 
   // Prepare SQL and bind parameters
   $stmt = $conn->prepare("INSERT INTO test_post" .
-  "(userid, favorJB_rev, general_vote, completion_code)" .
-  "VALUES (:userid, :favorJB_rev, :general_vote, :completion_code)");
-  $stmt->bindParam(':userid', $userid);
+  "(prolific_pid, study_id, session_id, favorJB_rev, general_vote)" .
+  "VALUES (:prolific_pid, :study_id, :session_id, :favorJB_rev, :general_vote)");
+  $stmt->bindParam(':prolific_pid', $prolific_pid);
+  $stmt->bindParam(':study_id', $study_id);
+  $stmt->bindParam(':session_id', $session_id);
   $stmt->bindParam(':favorJB_rev', $favorJB_rev);
   $stmt->bindParam(':general_vote', $general_vote);
-  $stmt->bindParam(':completion_code', $complete_code);
 
   // Insert row
-  $userid = $uuid;
+  $prolific_pid = $userData['PROLIFIC_PID'];
+  $study_id = $userData['STUDY_ID'];
+  $session_id = $userData['SESSION_ID'];
   $favorJB_rev = $dbData['favorJB_rev'];
   $general_vote = $dbData['general_vote'];
-  $complete_code = $ccode;
   $stmt->execute();
 
 } catch(PDOException $e) {
@@ -90,7 +105,8 @@ $email = "musashi.harukawa@politics.ox.ac.uk";
       <h4 class="sv-title sv-page__title">Thank you!</h4>
       <div class="sv-description sv-page__description">
         <p>You have now completed the survey.</p>
-        <p>Your unique completion code is: <em><?php echo $ccode; ?></em>. It may take me a bit of time to verify your responses, but you should receive payment within 3 days of completing this task.</p>
+        <h5 class="payment-code">Click <a href=<?php echo $ccode; ?>>here</a> to be redirected back to prolific and receive payment.</h5>
+        <p>Please bear with me while I verify your responses, but I will strive to ensure that you receive payment within 72 of completing this task.</p>
         <p>If you have further questions about the survey, payment, or change your mind regarding consent, please contact me at <?php echo $email; ?></p>
       </div>
     </div>

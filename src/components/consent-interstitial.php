@@ -2,11 +2,23 @@
 <html>
 
 <?php
-// Parse GET uuid
-if(isset($_GET['userid'])){
-  $uuid = $_GET['userid'];
-} else {
-  echo "<h1>User ID is not set! Please return to the <a href='/components/consent.php'>first page</a> of the survey otherwise your answers may not be recorded and you may not be paid.</h1>";
+// Read in prolific user data
+$userVars = array(
+  'PROLIFIC_PID',
+  'STUDY_ID',
+  'SESSION_ID'
+);
+
+$userData = array();
+
+foreach($userVars as $name){
+  if(isset($_GET[$name])){
+    echo $name . " is set to " . $_GET[$name] . "<br>";
+    $userData[$name] = $_GET[$name];
+  } else {
+    echo $name . " is unset<br>";
+    $userData[$name] = "UNSET_" . $name;
+  }
 }
 
 // Parse Consent Form
@@ -45,9 +57,11 @@ try {
 
   // Prepare SQL and bind parameters
   $stmt = $conn->prepare("INSERT INTO test_consent" .
-  "(userid, consent1, consent2, consent3, consent4, consent5, consent6, consent7, consent8, consent9)" .
-  "VALUES (:userid, :consent1, :consent2, :consent3, :consent4, :consent5, :consent6, :consent7, :consent8, :consent9)");
-  $stmt->bindParam(':userid', $userid);
+  "(prolific_pid, study_id, session_id, consent1, consent2, consent3, consent4, consent5, consent6, consent7, consent8, consent9)" .
+  "VALUES (:prolific_pid, :study_id, :session_id, :consent1, :consent2, :consent3, :consent4, :consent5, :consent6, :consent7, :consent8, :consent9)");
+  $stmt->bindParam(':prolific_pid', $prolific_pid);
+  $stmt->bindParam(':study_id', $study_id);
+  $stmt->bindParam(':session_id', $session_id);
   $stmt->bindParam(':consent1', $consent1);
   $stmt->bindParam(':consent2', $consent2);
   $stmt->bindParam(':consent3', $consent3);
@@ -59,7 +73,9 @@ try {
   $stmt->bindParam(':consent9', $consent9);
 
   // Insert row
-  $userid = $uuid;
+  $prolific_pid = $userData['PROLIFIC_PID'];
+  $study_id = $userData['STUDY_ID'];
+  $session_id = $userData['SESSION_ID'];
   $consent1 = $dbData['consent1'];
   $consent2 = $dbData['consent2'];
   $consent3 = $dbData['consent3'];
@@ -77,6 +93,8 @@ try {
 
 $conn = null;
 
-$nextPage = "/components/pretreatment.php?userid=" . $uuid;
+$nextPage = "/pretreatment.php?PROLIFIC_PID=" . $userData['PROLIFIC_PID'] .
+            "&STUDY_ID=" . $userData['STUDY_ID'] .
+            "&SESSION_ID=" . $userData['SESSION_ID'];
 header("Location: " . $nextPage);
 ?>

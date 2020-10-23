@@ -9,12 +9,25 @@
 
 <body>
 
+<div class="sv-page sv-body__page">
 <?php
-// Parse GET uuid
-if(isset($_GET['userid'])){
-  $uuid = $_GET['userid'];
-} else {
-  echo "<h1>User ID is not set! Please return to the <a href='/components/consent.php'>first page</a> of the survey otherwise your answers may not be recorded and you may not be paid.</h1>";
+// Read in prolific user data
+$userVars = array(
+  'PROLIFIC_PID',
+  'STUDY_ID',
+  'SESSION_ID'
+);
+
+$userData = array();
+
+foreach($userVars as $name){
+  if(isset($_GET[$name])){
+    echo $name . " is set to " . $_GET[$name] . "<br>";
+    $userData[$name] = $_GET[$name];
+  } else {
+    echo $name . " is unset<br>";
+    $userData[$name] = "UNSET_" . $name;
+  }
 }
 
 // Jupyter interaction
@@ -33,14 +46,15 @@ $postVars = array(
 $dbData = array();
 foreach($postVars as $name){
   if(isset($_POST[$name])){
-    // echo $_POST[$name] . "<br>";
     $dbData[$name] = $_POST[$name];
   }
 }
 
 // cURL POST jupyter kernel
+// SET TO /train FOR STAGE 1
+// SET TO /predict FOR STAGE 2
 $ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, "http://127.0.0.1:8889/predict");
+curl_setopt($ch, CURLOPT_URL, "http://127.0.0.1:8889/train");
 curl_setopt($ch, CURLOPT_POST, 1);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $dbData);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -75,9 +89,11 @@ try {
 
   // Prepare SQL and bind parameters
   $stmt = $conn->prepare("INSERT INTO test_pre" .
-  "(userid, age, gender, race, income, region, newsint, track_pre, pid_7_pre, ideo5_pre)" .
-  "VALUES (:userid, :age, :gender, :race, :income, :region, :newsint, :track_pre, :pid_7_pre, :ideo5_pre)");
-  $stmt->bindParam(':userid', $userid);
+  "(prolific_pid, study_id, session_id, age, gender, race, income, region, newsint, track_pre, pid_7_pre, ideo5_pre)" .
+  "VALUES (:prolific_pid, :study_id, :session_id, :age, :gender, :race, :income, :region, :newsint, :track_pre, :pid_7_pre, :ideo5_pre)");
+  $stmt->bindParam(':prolific_pid', $prolific_pid);
+  $stmt->bindParam(':study_id', $study_id);
+  $stmt->bindParam(':session_id', $session_id);
   $stmt->bindParam(':age', $age);
   $stmt->bindParam(':gender', $gender);
   $stmt->bindParam(':race', $race);
@@ -89,7 +105,9 @@ try {
   $stmt->bindParam(':ideo5_pre', $ideo5_pre);
 
   // Insert row
-  $userid = $uuid;
+  $prolific_pid = $userData['PROLIFIC_PID'];
+  $study_id = $userData['STUDY_ID'];
+  $session_id = $userData['SESSION_ID'];
   $age = $dbData['age'];
   $gender = $dbData['gender'];
   $race = $dbData['race'];
@@ -109,21 +127,24 @@ $conn = null;
 
 // Generate briefing page
 $briefURL = "/home/" . get_current_user() . "/dotas-design/briefs/" . $brief . ".html";
-$briefContent = readfile($briefURL);
-echo $briefContent;
+$briefFile = fopen($briefURL, "r");
+echo fread($briefFile, filesize($briefURL));
+fclose($briefFile);
 
 ?>
 
 <form method="post" action="
   <?php
-  echo "/components/ad.php?userid=" . $uuid;
+  echo "/ad.php?PROLIFIC_PID=" . $userData['PROLIFIC_PID'] .
+       "&STUDY_ID=" . $userData['STUDY_ID'] .
+       "&SESSION_ID=" . $userData['SESSION_ID'];
   ?>" target="_self">
   <input type="hidden" name="video" value="<?php echo $video; ?>" />
   <div data-bind="css: css.footer" class="sv-footer sv-body__footer sv-clearfix">
       <input type="submit" value="Continue" class="sv-btn sv-footer__complete-btn">
   </div>
 </form>
-
+</div>
 
 </body>
 </html>
