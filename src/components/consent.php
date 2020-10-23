@@ -10,8 +10,25 @@
 
 <body>
 <?php
-// Generate UUID
-$uuid = uuid_create(UUID_TYPE_RANDOM);
+// Read in prolific user data
+$userVars = array(
+  'PROLIFIC_PID',
+  'STUDY_ID',
+  'SESSION_ID'
+);
+
+$userData = array();
+
+foreach($userVars as $name){
+  if(isset($_GET[$name])){
+    echo $name . " is set to " . $_GET[$name] . "<br>";
+    $userData[$name] = $_GET[$name];
+  } else {
+    echo $name . " is unset<br>";
+    $userData[$name] = "UNSET_" . $name;
+  }
+}
+
 ?>
 
 
@@ -55,7 +72,9 @@ $uuid = uuid_create(UUID_TYPE_RANDOM);
         </div>
         <form method="post" action="
         <?php
-        echo "/components/consent-interstitial.php?userid=" . $uuid;
+        echo "/consent-interstitial.php?PROLIFIC_PID=" . $userData['PROLIFIC_PID'] .
+             "&STUDY_ID=" . $userData['STUDY_ID'] .
+             "&SESSION_ID=" . $userData['SESSION_ID'];
         ?>" target="_self">
 
           <ol type="1">

@@ -12,11 +12,23 @@
 
 <body>
 <?php
-// Parse GET uuid
-if(isset($_GET['userid'])){
-  $uuid = $_GET['userid'];
-} else {
-  echo "<h1>User ID is not set! Please return to the <a href='/components/consent.php'>first page</a> of the survey otherwise your answers may not be recorded and you may not be paid.</h1>";
+// Read in prolific user data
+$userVars = array(
+  'PROLIFIC_PID',
+  'STUDY_ID',
+  'SESSION_ID'
+);
+
+$userData = array();
+
+foreach($userVars as $name){
+  if(isset($_GET[$name])){
+    echo $name . " is set to " . $_GET[$name] . "<br>";
+    $userData[$name] = $_GET[$name];
+  } else {
+    echo $name . " is unset<br>";
+    $userData[$name] = "UNSET_" . $name;
+  }
 }
 ?>
 
@@ -34,21 +46,12 @@ if(isset($_GET['userid'])){
     </div>
   </div>
 
-  <!-- <div class="sv-page sv-body__page">
-    <div id="subheader">
-      <h4 class="sv-title sv-page__title">
-        <span style="position: static;">Welcome to the 2020 Political Ad Survey</span>
-      </h4>
-      <div class="sv-description sv-page__description">
-        <span style="position: static;">This survey asks you a few questions about yourself, asks you to watch a short ad, and asks your opinion on matters relating to the ad. It forms part of academic research into the effects of political
-          campaigning. In total this should take you
-          between 3-5 minutes.</span>
-      </div>
-    </div> -->
-
     <div id="surveyContent">
       <form method="post" action="
-      <?php echo "/components/end-of-survey.php?userid=" . $uuid;
+      <?php
+      echo "/end-of-survey.php?PROLIFIC_PID=" . $userData['PROLIFIC_PID'] .
+           "&STUDY_ID=" . $userData['STUDY_ID'] .
+           "&SESSION_ID=" . $userData['SESSION_ID'];
       ?>" target="_self">
 
         <!-- Favorability favorJB_rev -->

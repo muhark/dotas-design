@@ -9,11 +9,23 @@
 </head>
 <body>
 <?php
-// Parse GET uuid
-if(isset($_GET['userid'])){
-  $uuid = $_GET['userid'];
-} else {
-  echo "<h1>User ID is not set! Please return to the <a href='/components/consent.php'>first page</a> of the survey otherwise your answers may not be recorded and you may not be paid.</h1>";
+// Read in prolific user data
+$userVars = array(
+  'PROLIFIC_PID',
+  'STUDY_ID',
+  'SESSION_ID'
+);
+
+$userData = array();
+
+foreach($userVars as $name){
+  if(isset($_GET[$name])){
+    echo $name . " is set to " . $_GET[$name] . "<br>";
+    $userData[$name] = $_GET[$name];
+  } else {
+    echo $name . " is unset<br>";
+    $userData[$name] = "UNSET_" . $name;
+  }
 }
 ?>
 
@@ -52,7 +64,9 @@ if(isset($_GET['userid'])){
   <div id="nextButton">
     <form method="post" action="
       <?php
-      echo "/components/posttreatment.php?userid=" . $uuid;
+      echo "/posttreatment.php?PROLIFIC_PID=" . $userData['PROLIFIC_PID'] .
+           "&STUDY_ID=" . $userData['STUDY_ID'] .
+           "&SESSION_ID=" . $userData['SESSION_ID'];
       ?>" target="_self">
       <div data-bind="css: css.footer" class="sv-footer sv-body__footer sv-clearfix">
           <input type="submit" value="Continue" class="sv-btn sv-footer__complete-btn">
