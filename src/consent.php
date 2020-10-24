@@ -21,7 +21,7 @@ $userData = array();
 
 foreach($userVars as $name){
   if(isset($_GET[$name])){
-    echo $name . " is set to " . $_GET[$name] . "<br>";
+    // echo $name . " is set to " . $_GET[$name] . "<br>";
     $userData[$name] = $_GET[$name];
   } else {
     echo $name . " is unset<br>";
@@ -54,21 +54,27 @@ foreach($userVars as $name){
       <div class="sv-description sv-page__description">
         <h6>Doctoral Research in Political Campaigning</h6>
         <p>Central University Research Ethics Committee (CUREC) Approval Reference: SSH_DPIR_C1A_20_019</p>
-        <p>
-          Purpose of Study: <em>Purpose of Study: The aim of this research is to better measure the effect of political advertisements with the aim of providing better evidence-based strategies for their regulation.</em>
-        </p>
       </div>
     </div>
 
     <div class="sv-row sv-clearfix">
       <div class="sv-question" style="flex: 1 1 100%; width: 100%; min-width: 300px; max-width: initial;" id="consent0" name="consent0">
         <h5 class="sv-question__title">
-          Prior to starting the survey, please take a moment to <a href="/Participant-Information-Sheet.docx">download and read the Participant Information Sheet</a>, and record your consent to the following below.
+          Key Points regarding Data and Consent:
         </h5>
+        <!-- <h5 class="sv-question__title">
+          Prior to starting the survey, please take a moment to <a href="/Participant-Information-Sheet.docx">download and read the Participant Information Sheet</a>, and record your consent to the following below.
+        </h5> -->
         <div class="sv-description sv-question__description">
-          <p>
-            Please note, your answers on this page will be stored separately so that your name is not directly linked to the answers you give in the data.
-          </p>
+          <ul>
+            <li><b>Purpose of Study:</b> The aim of this research is to better measure the effect of political advertisements with the aim of providing better evidence-based strategies for their regulation.</li>
+            <li><b>Data Collected:</b> This survey asks 12 questions, and records an additional 4 pieces of metadata.<ul>
+              <li>12 questions concerning demographic traits such as age, gender, ethnicity, and geographic region, as well as political opinions. These are central to the research being conducted. <em>Only this data will be shared with other researchers</em></li>
+              <li>4 pieces of metadata include 3 data points regarding user, session and study id, provided by Prolific. The final point is the time of submission. These data points are used to link Prolific accounts with completed tasks so that payment can be made.</li>
+            </ul></li>
+            <li><b>Data Security:</b> None of the information collected is personally identifiable. Nevertheless, because the researcher cares greatly about data security, all stored information will be stored and transferred in a cryptographically secure manner.</li>
+            <li><b>Your Consent:</b> Your participation in this research is entirely <em>voluntary</em>. You may also withdraw your consent, without giving a reason, by advising me prior to 31 December 2020. After this point, information provided may be included in publication, but will always remain anonymised and secure.</li>
+            <li><b>Further Information:</b> For further information, you may refer to the Participant Information Sheet, which will also be available for download at the end of the study.</li>
         </div>
         <form method="post" action="
         <?php
@@ -78,21 +84,10 @@ foreach($userVars as $name){
         ?>" target="_self">
 
           <ol type="1">
-            <li> <input type="checkbox" id="consent1" name="consent1" value="1" required><label for="consent1">I confirm that I have read and understand the information sheet version 1 dated 15 October 2020 for the above study. I have had the opportunity to
-                consider the information, ask questions and have had these answered satisfactorily.</label>
-            <li> <input type="checkbox" id="consent2" name="consent2" value="1" required><label for="consent2">I understand that my participation is voluntary and that I am free to withdraw at any time, without giving any reason, and without any adverse
-                consequences or penalty.</label>
-            <li> <input type="checkbox" id="consent3" name="consent3" value="1" required><label for="consent3">I understand that research data collected during the study may be looked at by authorised people outside the research team. I give permission for
-                these individuals to access my data.</label>
-            <li> <input type="checkbox" id="consent4" name="consent4" value="1" required><label for="consent4">I understand that this project has been reviewed by, and received ethics clearance through, the University of Oxford Central University Research
-                Ethics Committee.</label>
-            <li> <input type="checkbox" id="consent5" name="consent5" value="1" required><label for="consent5">I understand who will have access to personal data provided, how the data will be stored and what will happen to the data at the end of the
-                project.</label>
-            <li> <input type="checkbox" id="consent6" name="consent6" value="1" required><label for="consent6">I understand how this research will be written up and published.</label>
-            <li> <input type="checkbox" id="consent7" name="consent7" value="1" required><label for="consent7">I understand how to raise a concern or make a complaint.</label>
-            <li> <input type="checkbox" id="consent8" name="consent8" value="1" required><label for="consent8">I agree to take part in the study.</label>
-            <li> <input type="checkbox" id="consent9" name="consent9" value="1" required><label for="consent9">I agree for research data collected in this study to be given to researchers, including those working outside of the UK and the EU, to be used in
-                other research studies. I understand that any data that leave the research group will be anonymised so that I cannot be identified.</label>
+            <li> <input type="checkbox" id="consent1" name="consent1" value="1" required><label for="consent1">I agree to take part in this study.</label></li>
+            <li> <input type="checkbox" id="consent1" name="consent2" value="1" required><label for="consent1">I understand that my participation is voluntary and that I am free to withdraw at any time, without giving any reason, and without any adverse consequences or penalty.</label></li>
+            <li> <input type="checkbox" id="consent1" name="consent3" value="1" required><label for="consent1">I understand that the answers I provide may be accessed by authorised researchers outside the research team, potentially outside the UK and EU. I give permission for these individuals to access my data.</label></li>
+            <li> <input type="checkbox" id="consent1" name="consent4" value="1" required><label for="consent1">I understand that I may raise concerns and complaints to the researcher at any time.</label></li>
           </ol>
       </div>
     </div>

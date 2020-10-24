@@ -25,7 +25,7 @@ $userData = array();
 
 foreach($userVars as $name){
   if(isset($_GET[$name])){
-    echo $name . " is set to " . $_GET[$name] . "<br>";
+    // echo $name . " is set to " . $_GET[$name] . "<br>";
     $userData[$name] = $_GET[$name];
   } else {
     echo $name . " is unset<br>";
@@ -107,7 +107,7 @@ $email = "musashi.harukawa@politics.ox.ac.uk";
         <p>You have now completed the survey.</p>
         <h5 class="payment-code">Click <a href=<?php echo $ccode; ?>>here</a> to be redirected back to prolific and receive payment.</h5>
         <p>Please bear with me while I verify your responses, but I will strive to ensure that you receive payment within 72 of completing this task.</p>
-        <p>If you have further questions about the survey, payment, or change your mind regarding consent, please contact me at <?php echo $email; ?></p>
+        <p>If you have further questions about the survey, payment, or change your mind regarding consent, please contact me in the email address provided in the Participant Information Sheet.</p>
       </div>
     </div>
 

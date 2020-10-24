@@ -13,7 +13,7 @@ $userData = array();
 
 foreach($userVars as $name){
   if(isset($_GET[$name])){
-    echo $name . " is set to " . $_GET[$name] . "<br>";
+    // echo $name . " is set to " . $_GET[$name] . "<br>";
     $userData[$name] = $_GET[$name];
   } else {
     echo $name . " is unset<br>";
@@ -28,11 +28,6 @@ $postVars = array(
   'consent2',
   'consent3',
   'consent4',
-  'consent5',
-  'consent6',
-  'consent7',
-  'consent8',
-  'consent9',
 );
 
 foreach($postVars as $name){
@@ -57,8 +52,8 @@ try {
 
   // Prepare SQL and bind parameters
   $stmt = $conn->prepare("INSERT INTO test_consent" .
-  "(prolific_pid, study_id, session_id, consent1, consent2, consent3, consent4, consent5, consent6, consent7, consent8, consent9)" .
-  "VALUES (:prolific_pid, :study_id, :session_id, :consent1, :consent2, :consent3, :consent4, :consent5, :consent6, :consent7, :consent8, :consent9)");
+  "(prolific_pid, study_id, session_id, consent1, consent2, consent3, consent4)" .
+  "VALUES (:prolific_pid, :study_id, :session_id, :consent1, :consent2, :consent3, :consent4 )");
   $stmt->bindParam(':prolific_pid', $prolific_pid);
   $stmt->bindParam(':study_id', $study_id);
   $stmt->bindParam(':session_id', $session_id);
@@ -66,11 +61,6 @@ try {
   $stmt->bindParam(':consent2', $consent2);
   $stmt->bindParam(':consent3', $consent3);
   $stmt->bindParam(':consent4', $consent4);
-  $stmt->bindParam(':consent5', $consent5);
-  $stmt->bindParam(':consent6', $consent6);
-  $stmt->bindParam(':consent7', $consent7);
-  $stmt->bindParam(':consent8', $consent8);
-  $stmt->bindParam(':consent9', $consent9);
 
   // Insert row
   $prolific_pid = $userData['PROLIFIC_PID'];
@@ -80,11 +70,6 @@ try {
   $consent2 = $dbData['consent2'];
   $consent3 = $dbData['consent3'];
   $consent4 = $dbData['consent4'];
-  $consent5 = $dbData['consent5'];
-  $consent6 = $dbData['consent6'];
-  $consent7 = $dbData['consent7'];
-  $consent8 = $dbData['consent8'];
-  $consent9 = $dbData['consent9'];
   $stmt->execute();
 
 } catch(PDOException $e) {
