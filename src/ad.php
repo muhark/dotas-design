@@ -20,7 +20,7 @@ $userData = array();
 
 foreach($userVars as $name){
   if(isset($_GET[$name])){
-    echo $name . " is set to " . $_GET[$name] . "<br>";
+    // echo $name . " is set to " . $_GET[$name] . "<br>";
     $userData[$name] = $_GET[$name];
   } else {
     echo $name . " is unset<br>";
@@ -42,10 +42,10 @@ foreach($userVars as $name){
   </div>
 
   <!-- SUBTITLE AND BRIEF -->
-  <div id="video-container">
+  <div id="video-container" class="sv-body__page">
     <div class="sv-page sv-body__page">
       <h4 class="sv-title sv-page__title">
-        <span style="position: static;">Short Political Advertisement</span>
+        <span style="position: static;">Short Advertisement</span>
       </h4>
       <div class="sv-description sv-page__description">
         <span style="position: static;">Please watch this video from beginning to end, without skipping ahead. Once the video has been watched, the option to proceed to the next page will become available.</span>

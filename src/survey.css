@@ -74,7 +74,7 @@ body {
 
 .sv-container-modern__title {
   padding-left: 0.55em;
-  color: #1ab394;
+  color: #193658;
   padding-top: 5em;
   padding-bottom: 0.9375em; }
   @media only screen and (min-width: 1000px) {
@@ -105,11 +105,13 @@ body {
 
 .sv-body__page,
 .sv-body__footer {
-  margin-top: 2em; }
+  margin-top: 2em;
+  min-width: 300px;
+  max-width: 70% }
   @media only screen and (min-width: 1000px) {
     .sv-body__page,
     .sv-body__footer {
-      margin-right: 5%;
+      margin-right: 0;
       margin-left: 5%; } }
   @media only screen and (max-width: 1000px) {
     .sv-body__page,
@@ -419,7 +421,7 @@ body {
   font-style: normal;
   font-stretch: normal;
   line-height: normal;
-  letter-spacing: normal; }
+  letter-spacing: normal;}
 
 .sv-description {
   /* color: rgba(64, 64, 64, 0.5); } */
@@ -589,7 +591,8 @@ body {
   font-weight: bold;
   outline: none;
   padding: 0.5em 2.786em 0.6em;
-  text-align: left; }
+  text-align: left;
+  float: right;}
 
 .sv-item {
   position: relative;

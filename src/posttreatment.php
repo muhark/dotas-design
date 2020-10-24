@@ -23,7 +23,7 @@ $userData = array();
 
 foreach($userVars as $name){
   if(isset($_GET[$name])){
-    echo $name . " is set to " . $_GET[$name] . "<br>";
+    // echo $name . " is set to " . $_GET[$name] . "<br>";
     $userData[$name] = $_GET[$name];
   } else {
     echo $name . " is unset<br>";
@@ -46,7 +46,7 @@ foreach($userVars as $name){
     </div>
   </div>
 
-    <div id="surveyContent">
+    <div id="surveyContent" class="sv-body__page">
       <form method="post" action="
       <?php
       echo "/end-of-survey.php?PROLIFIC_PID=" . $userData['PROLIFIC_PID'] .

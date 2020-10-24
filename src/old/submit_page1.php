@@ -27,17 +27,18 @@ foreach($postVars as $name){
 
 
 $ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, "http://127.0.0.1:8889/testpredict");
+curl_setopt($ch, CURLOPT_URL, "http://127.0.0.1:8889/predict");
 curl_setopt($ch, CURLOPT_POST, 1);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 $response = curl_exec($ch);
 curl_close($ch);
 
-// echo var_dump(json_decode($response));
+echo var_dump(json_decode($response));
 
 $ad_choice = json_decode($response);
-// echo $ad_choice->best_ad;
+echo $ad_choice->video;
+echo $ad_choice->brief;
 ?>
 
 <!-- TITLE -->
@@ -63,7 +64,7 @@ $ad_choice = json_decode($response);
       </div>
 
 <video width="480" height="400" controls="false" poster="" id="video">
-    <source type="video/mp4" src="/<?php echo $ad_choice->best_ad; ?>"></source>
+    <source type="video/mp4" src="<?php echo $ad_choice->video; ?>"></source>
 </video>
 
 <div id="status" class="incomplete">

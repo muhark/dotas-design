@@ -6,8 +6,8 @@
   <title>Political Ads Survey</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=font1|font2|etc" type="text/css">
   <link rel="stylesheet" href="/survey.css" type="text/css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
-  <script src="https://assets.crowd.aws/crowd-html-elements.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script> -->
+  <!-- <script src="https://assets.crowd.aws/crowd-html-elements.js"></script> -->
 </head>
 
 <body>
@@ -23,7 +23,7 @@ $userData = array();
 
 foreach($userVars as $name){
   if(isset($_GET[$name])){
-    echo $name . " is set to " . $_GET[$name] . "<br>";
+    // echo $name . " is set to " . $_GET[$name] . "<br>";
     $userData[$name] = $_GET[$name];
   } else {
     echo $name . " is unset<br>";
@@ -31,7 +31,7 @@ foreach($userVars as $name){
   }
 }
 ?>
-  <crowd-instructions link-text="View instructions" link-type="button">
+  <!-- <crowd-instructions link-text="View instructions" link-type="button">
     <short-summary>
     </short-summary>
     <detailed-instructions>
@@ -42,7 +42,7 @@ foreach($userVars as $name){
       <li>In the second part, you will be shown a short campaign advertisement video. You do not need to do anything, but please pay attention to the video.</li>
       <li>In the final part, you will be asked a few questions about the video.</li>
     </detailed-instructions>
-  </crowd-instructions>
+  </crowd-instructions> -->
 
 <div id="surveyContainer" class="sv-root-modern">
   <!-- TITLE -->
@@ -65,9 +65,7 @@ foreach($userVars as $name){
         <span style="position: static;">Welcome to the 2020 Political Ad Survey</span>
       </h4>
       <div class="sv-description sv-page__description">
-        <span style="position: static;">This survey asks you a few questions about yourself, asks you to watch a short ad, and asks your opinion on matters relating to the ad. It forms part of academic research into the effects of political
-          campaigning. In total this should take you
-          between 3-5 minutes.</span>
+        <span style="position: static;">This first page contains questions about yourself and your opinions. Please answer truthfully to the best of your ability.</span>
       </div>
 
       <!-- FORM BEGINS -->
@@ -190,8 +188,15 @@ foreach($userVars as $name){
           <!-- GENDER Q CONTENT -->
           <div class="sv-question__content">
             <div role="alert" class="sv-question__erbox sv-question__erbox--location--top" id="sq_101_errors" style="display: none;"></div>
-            <fieldset role="radiogroup" class="sv-selectbase">
               <legend aria-label="What is your gender?"></legend>
+              <div class="sv-item sv-radio sv-selectbase__item sv-q-col-1 sv-radio--allowhover">
+                <label class="sv-selectbase__label">
+                  <input type="radio" name="gender" id="gender" aria-required="true" aria-label="Female" role="radio" value="1" required>
+                  <span class="sv-item__control-label" title="Female">
+                    <span style="position: static;">Female</span>
+                  </span>
+                </label>
+              </div>
               <div class="sv-item sv-radio sv-selectbase__item sv-q-col-1 sv-radio--allowhover">
                 <label class="sv-selectbase__label">
                   <input type="radio" name="gender" id="gender" aria-required="true" aria-label="Male" role="radio" value="0" required>
@@ -202,13 +207,12 @@ foreach($userVars as $name){
               </div>
               <div class="sv-item sv-radio sv-selectbase__item sv-q-col-1 sv-radio--allowhover">
                 <label class="sv-selectbase__label">
-                  <input type="radio" name="gender" id="gender" aria-required="true" aria-label="Female" role="radio" value="1" required>
-                  <span class="sv-item__control-label" title="Female">
-                    <span style="position: static;">Female</span>
+                  <input type="radio" name="gender" id="gender" aria-required="true" aria-label="Other" role="radio" value="2" required>
+                  <span class="sv-item__control-label" title="Other">
+                    <span style="position: static;">Other</span>
                   </span>
                 </label>
               </div>
-            </fieldset><!-- /ko -->
             <div class="sv-description sv-question__description" style="display: none;">
               <span style="position: static;"></span>
             </div>
@@ -264,7 +268,6 @@ foreach($userVars as $name){
           </div>
           <div class="sv-question__content">
             <div role="alert" class="sv-question__erbox sv-question__erbox--location--top" id="sq_103_errors" style="display: none;"></div>
-            <fieldset role="radiogroup" class="sv-selectbase">
               <legend aria-label="Which of the following describes your annual income?"></legend>
               <div class="sv-item sv-radio sv-selectbase__item sv-q-col-1 sv-radio--allowhover">
                 <label class="sv-selectbase__label">
@@ -298,7 +301,6 @@ foreach($userVars as $name){
                   </span>
                 </label>
               </div>
-            </fieldset><!-- /ko -->
             <div class="sv-description sv-question__description" style="display: none;">
               <span style="position: static;"></span>
             </div>
@@ -321,7 +323,6 @@ foreach($userVars as $name){
           </div>
           <div class="sv-question__content">
             <div role="alert" class="sv-question__erbox sv-question__erbox--location--top" id="sq_104_errors" style="display: none;"></div>
-            <fieldset role="radiogroup" class="sv-selectbase">
               <legend aria-label="Which region of the United States do you live in?"></legend>
               <div class="sv-item sv-radio sv-selectbase__item sv-q-col-1 sv-radio--allowhover">
                 <label class="sv-selectbase__label">
@@ -355,7 +356,6 @@ foreach($userVars as $name){
                   </span>
                 </label>
               </div>
-            </fieldset><!-- /ko -->
             <div class="sv-description sv-question__description" style="display: none;">
               <span style="position: static;"></span>
             </div>
@@ -378,7 +378,6 @@ foreach($userVars as $name){
           </div>
           <div class="sv-question__content">
             <div role="alert" class="sv-question__erbox sv-question__erbox--location--top" id="sq_105_errors" style="display: none;"></div>
-            <fieldset role="radiogroup" class="sv-selectbase">
               <legend
                 aria-label="Some people seem to follow what's going on in government and public affairs most of the time, whether there's an election going on or not. Others aren't that interested. Would you say you follow what's going on in government and public affairs...">
               </legend>
@@ -414,7 +413,6 @@ foreach($userVars as $name){
                   </span>
                 </label>
               </div>
-            </fieldset><!-- /ko -->
             <div class="sv-description sv-question__description" style="display: none;">
               <span style="position: static;"></span>
             </div>
@@ -437,7 +435,6 @@ foreach($userVars as $name){
           </div>
           <div class="sv-question__content">
             <div role="alert" class="sv-question__erbox sv-question__erbox--location--top" id="sq_106_errors" style="display: none;"></div>
-            <fieldset role="radiogroup" class="sv-selectbase">
               <legend aria-label="Generally speaking, would you say things in the country are going in the right direction, or are they off on the wrong track?"></legend>
               <div class="sv-item sv-radio sv-selectbase__item sv-q-col-1 sv-radio--allowhover">
                 <label class="sv-selectbase__label">
@@ -463,7 +460,6 @@ foreach($userVars as $name){
                   </span>
                 </label>
               </div>
-            </fieldset><!-- /ko -->
             <div class="sv-description sv-question__description" style="display: none;">
               <span style="position: static;"></span>
             </div>
@@ -490,7 +486,6 @@ foreach($userVars as $name){
           </div>
           <div class="sv-question__content">
             <div role="alert" class="sv-question__erbox sv-question__erbox--location--top" id="sq_107_errors" style="display: none;"></div>
-            <fieldset role="radiogroup" class="sv-selectbase">
               <!-- <legend
                 aria-label="Some people seem to follow what's going on in government and public affairs most of the time, whether there's an election going on or not. Others aren't that interested. Would you say you follow what's going on in government and public affairs...">
               </legend> -->
@@ -558,7 +553,6 @@ foreach($userVars as $name){
                 </label>
               </div>
 
-            </fieldset><!-- /ko -->
             <div class="sv-description sv-question__description" style="display: none;">
               <span style="position: static;"></span>
             </div>
@@ -581,7 +575,6 @@ foreach($userVars as $name){
           </div>
           <div class="sv-question__content">
             <div role="alert" class="sv-question__erbox sv-question__erbox--location--top" id="sq_108_errors" style="display: none;"></div>
-            <fieldset role="radiogroup" class="sv-selectbase">
 
               <div class="sv-item sv-radio sv-selectbase__item sv-q-col-1 sv-radio--allowhover">
                 <label class="sv-selectbase__label">

@@ -22,7 +22,7 @@ $userData = array();
 
 foreach($userVars as $name){
   if(isset($_GET[$name])){
-    echo $name . " is set to " . $_GET[$name] . "<br>";
+    // echo $name . " is set to " . $_GET[$name] . "<br>";
     $userData[$name] = $_GET[$name];
   } else {
     echo $name . " is unset<br>";
@@ -126,7 +126,7 @@ try {
 $conn = null;
 
 // Generate briefing page
-$briefURL = "/home/" . get_current_user() . "/dotas-design/briefs/" . $brief . ".html";
+$briefURL = "/home/" . get_current_user() . "/Dev/dotas-design/briefs/" . $brief . ".html";
 $briefFile = fopen($briefURL, "r");
 echo fread($briefFile, filesize($briefURL));
 fclose($briefFile);
