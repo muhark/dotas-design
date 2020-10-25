@@ -7,14 +7,14 @@ This repository contains the code for a dynamic survey experiment, used in my DP
 
 Stage: **TEST**
 
-Days to election: **9**
+Days to election: **8**
 
 # TEST CHECKLIST
 
 - [ ] Front-end
-    - [ ] Browser compatibility checks
-        - [ ] Video
-        - [ ] Text
+    - [x] Browser compatibility checks
+        - [x] Video
+        - [x] Text
     - [ ] Bug checks
 - [ ] Back-end
     - [ ] Database stability
