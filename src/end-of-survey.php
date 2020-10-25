@@ -28,8 +28,9 @@ foreach($userVars as $name){
     // echo $name . " is set to " . $_GET[$name] . "<br>";
     $userData[$name] = $_GET[$name];
   } else {
-    echo $name . " is unset<br>";
-    $userData[$name] = "UNSET_" . $name;
+    // echo $name . " is unset<br>";
+    die("No valid " . $name .
+        "found. Please go back and make sure you have not altered the URL.");
   }
 }
 
@@ -102,12 +103,18 @@ $email = "musashi.harukawa@politics.ox.ac.uk";
 
     <!-- SUBHEADER AND BRIEF -->
     <div class="sv-page sv-page__description">
-      <h4 class="sv-title sv-page__title">Thank you!</h4>
+      <h4 class="sv-title sv-page__title">Payment Link</h4>
       <div class="sv-description sv-page__description">
-        <p>You have now completed the survey.</p>
+        <p>You have now completed the survey. Thank you for participating!</p>
         <h5 class="payment-code">Click <a href=<?php echo $ccode; ?>>here</a> to be redirected back to prolific and receive payment.</h5>
         <p>Please bear with me while I verify your responses, but I will strive to ensure that you receive payment within 72 of completing this task.</p>
-        <p>If you have further questions about the survey, payment, or change your mind regarding consent, please contact me in the email address provided in the Participant Information Sheet.</p>
+      </div>
+      <h4 class="sv-title sv-page__title">Debrief</h4>
+      <div class="sv-description sv-page__description">
+        <ul>
+          <li><b>What was the purpose of this experiment?</b><br>The purpose of this experiment was to show whether "micro"-targeted political campaigning makes a difference to elections.</li>
+          <li><b>How does this study show that?</b><br>During this experiment, you were assigned to either the "control" or "treatment" group. The control group was shown a random advertisement (or a neutral advertisement explaining voter eligibility). The control group was given the "optimal" ad based on their answers to the first set of questions, chosen by an machine learning algorithm. By looking at the difference in average Biden opinion between these two groups, we can make claims about "effect" of being targeted.</li>
+          <li><b>I want to know more!</b><br>If you have further questions about the survey, payment, or change your mind regarding consent, please contact me in the email address provided in the <a href="misc/participant-info.docx">Participant Information Sheet</a>.</li>
       </div>
     </div>
 
