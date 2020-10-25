@@ -9,8 +9,6 @@ ADS_VEC = ['ad_id_fac_26', 'ad_id_fac_27', 'ad_id_fac_33', 'ad_id_fac_38',
        'ad_id_fac_66', 'ad_id_fac_68', 'ad_id_fac_70', 'ad_id_fac_71',
        'ad_id_fac_75', 'ad_id_fac_77', 'ad_id_fac_8', 'ad_id_fac_99']
 
-ADS_MAP = dict(zip(ADS_VEC, 4*[f"/ads/ad_{i}" for i in range(1, 7)]))
-
 # Load model
 model = load("../model/prefitted/rf1.joblib")
 
