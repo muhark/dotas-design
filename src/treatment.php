@@ -89,8 +89,8 @@ try {
 
   // Prepare SQL and bind parameters
   $stmt = $conn->prepare("INSERT INTO test_pre" .
-  "(prolific_pid, study_id, session_id, age, gender, race, income, region, newsint, track_pre, pid_7_pre, ideo5_pre)" .
-  "VALUES (:prolific_pid, :study_id, :session_id, :age, :gender, :race, :income, :region, :newsint, :track_pre, :pid_7_pre, :ideo5_pre)");
+  "(prolific_pid, study_id, session_id, age, gender, race, income, region, newsint, track_pre, pid_7_pre, ideo5_pre, ad_id, brief_id)" .
+  "VALUES (:prolific_pid, :study_id, :session_id, :age, :gender, :race, :income, :region, :newsint, :track_pre, :pid_7_pre, :ideo5_pre, :ad_id, :brief_id)");
   $stmt->bindParam(':prolific_pid', $prolific_pid);
   $stmt->bindParam(':study_id', $study_id);
   $stmt->bindParam(':session_id', $session_id);
@@ -103,6 +103,8 @@ try {
   $stmt->bindParam(':track_pre', $track_pre);
   $stmt->bindParam(':pid_7_pre', $pid_7_pre);
   $stmt->bindParam(':ideo5_pre', $ideo5_pre);
+  $stmt->bindParam(':ad_id', $ad_id);
+  $stmt->bindParam(':brief_id', $brief_id);
 
   // Insert row
   $prolific_pid = $userData['PROLIFIC_PID'];
@@ -117,6 +119,8 @@ try {
   $track_pre = $dbData['track_pre'];
   $pid_7_pre = $dbData['pid_7_pre'];
   $ideo5_pre = $dbData['ideo5_pre'];
+  $ad_id = $video;
+  $brief_id = $brief;
   $stmt->execute();
 
 } catch(PDOException $e) {

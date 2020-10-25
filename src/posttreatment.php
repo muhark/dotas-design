@@ -54,6 +54,80 @@ foreach($userVars as $name){
            "&SESSION_ID=" . $userData['SESSION_ID'];
       ?>" target="_self">
 
+        <!-- Favorability favorDT_rev -->
+        <div class="sv-row sv-clearfix">
+          <div class="sv-question sv-row__question" id="favorJB_rev" name="favorJB_rev" style="flex: 1 1 100%; width: 100%; min-width: 300px; max-width: initial;">
+            <div class="sv-question__header sv-question__header--location--top">
+              <h5 class="sv-title sv-question__title sv-question__title--required">
+                <span style="position: static;" class="sv-question__num">1.</span>
+                <span style="position: static;">
+                  On a scale of 1-5, how would you rate Republican Presidential Candidate Donald Trump?
+                </span>
+                <span class="sv-question__required-text">*</span>
+              </h5>
+              <div class="sv-description sv-question__description">
+                <span style="position: static;">
+                  A rating of 4 or 5 means that you feel favorable and warm towards the candidate. A rating of 1 or 2 means that you don't feel favorable and warm towards the candidate. You would rate them at 3 if you don't feel particularly warm or cold toward them.
+                </span>
+              </div>
+            </div>
+            <div class="sv-question__content">
+              <div role="alert" class="sv-question__erbox sv-question__erbox--location--top" id="sq_107_errors" style="display: none;"></div>
+              <div class="sv-selectbase">
+
+                <div class="sv-item sv-radio sv-selectbase__item sv-q-col-1 sv-radio--allowhover">
+                  <label class="sv-selectbase__label">
+                    <input type="radio" name="favorDT_rev" id="favorDT_rev" aria-required="true" role="radio" value="1" required>
+                    <span class="sv-item__control-label" title="Very cold">
+                      <span style="position: static;">1. Very cold or unfavorable feeling</span>
+                    </span>
+                  </label>
+                </div>
+
+                <div class="sv-item sv-radio sv-selectbase__item sv-q-col-1 sv-radio--allowhover">
+                  <label class="sv-selectbase__label">
+                    <input type="radio" name="favorDT_rev" id="favorDT_rev" aria-required="true" role="radio" value="2" required>
+                    <span class="sv-item__control-label" title="Fairly cold">
+                      <span style="position: static;">2. Fairly cold or unfavorable feeling</span>
+                    </span>
+                  </label>
+                </div>
+
+                <div class="sv-item sv-radio sv-selectbase__item sv-q-col-1 sv-radio--allowhover">
+                  <label class="sv-selectbase__label">
+                    <input type="radio" name="favorDT_rev" id="favorDT_rev" aria-required="true" role="radio" value="3" required>
+                    <span class="sv-item__control-label" title="No feeling">
+                      <span style="position: static;">3. No feeling at all</span>
+                    </span>
+                  </label>
+                </div>
+
+                <div class="sv-item sv-radio sv-selectbase__item sv-q-col-1 sv-radio--allowhover">
+                  <label class="sv-selectbase__label">
+                    <input type="radio" name="favorDT_rev" id="favorDT_rev" aria-required="true" role="radio" value="4" required>
+                    <span class="sv-item__control-label" title="Fairly warm">
+                      <span style="position: static;">4. Fairly warm or favorable feeling</span>
+                    </span>
+                  </label>
+                </div>
+
+                <div class="sv-item sv-radio sv-selectbase__item sv-q-col-1 sv-radio--allowhover">
+                  <label class="sv-selectbase__label">
+                    <input type="radio" name="favorDT_rev" id="favorDT_rev" aria-required="true" role="radio" value="5" required>
+                    <span class="sv-item__control-label" title="Very warm">
+                      <span style="position: static;">5. Very warm or favorable feeling</span>
+                    </span>
+                  </label>
+                </div>
+
+              </div>
+              <div class="sv-description sv-question__description" style="display: none;">
+                <span style="position: static;"></span>
+              </div>
+          </div>
+        </div>
+        </div>
+
         <!-- Favorability favorJB_rev -->
         <div class="sv-row sv-clearfix">
           <div class="sv-question sv-row__question" id="favorJB_rev" name="favorJB_rev" style="flex: 1 1 100%; width: 100%; min-width: 300px; max-width: initial;">
@@ -128,7 +202,6 @@ foreach($userVars as $name){
         </div>
         </div>
 
-
         <!-- Vote Propensity general_vote -->
         <div class="sv-row sv-clearfix">
           <div class="sv-question sv-row__question" id="general_vote" name="general_vote" style="flex: 1 1 100%; width: 100%; min-width: 300px; max-width: initial;">
@@ -136,7 +209,7 @@ foreach($userVars as $name){
               <h5 class="sv-title sv-question__title sv-question__title--required">
                 <span style="position: static;" class="sv-question__num">2.</span>
                 <span style="position: static;">
-                  Thinking about the 2020 presidential election between Donald Trump for the Republicans and Joe Biden for the Democrats, which of the following applies to you?
+                  Thinking about the 2020 Presidential Election between Donald Trump for the Republicans and Joe Biden for the Democrats, which of the following applies to you?
                 </span>
                 <span class="sv-question__required-text">*</span>
               </h5>
