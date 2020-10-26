@@ -52,8 +52,8 @@ foreach($userVars as $name){
       </div>
 
       <video width="480" height="400" controls="false" poster="" id="video">
-        <source type="video/webm" src="<?php echo $_POST['video']; ?>.webm"></source>
-        <source type="video/mp4" src="<?php echo $_POST['video']; ?>.mp4"></source>
+        <source type="video/webm" src="/ads/<?php echo $_POST['video']; ?>.webm"></source>
+        <source type="video/mp4" src="/ads/<?php echo $_POST['video']; ?>.mp4"></source>
       </video>
 
       <div>
