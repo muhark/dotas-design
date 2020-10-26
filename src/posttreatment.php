@@ -56,7 +56,7 @@ foreach($userVars as $name){
 
         <!-- Favorability favorDT_rev -->
         <div class="sv-row sv-clearfix">
-          <div class="sv-question sv-row__question" id="favorJB_rev" name="favorJB_rev" style="flex: 1 1 100%; width: 100%; min-width: 300px; max-width: initial;">
+          <div class="sv-question sv-row__question" id="favorDT_rev" name="favorDT_rev" style="flex: 1 1 100%; width: 100%; min-width: 300px; max-width: initial;">
             <div class="sv-question__header sv-question__header--location--top">
               <h5 class="sv-title sv-question__title sv-question__title--required">
                 <span style="position: static;" class="sv-question__num">1.</span>
