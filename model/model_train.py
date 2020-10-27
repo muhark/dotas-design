@@ -1,44 +1,20 @@
-import pandas as pd
-import numpy as np
-import sklearn.ensemble as ske
-import sklearn.neural_network as snn
-import sklearn.svm as svm
-from joblib import dump
-from numpy.random import MT19937, RandomState, SeedSequence
-import sqlalchemy as sql
-import mysql.connector as mariadb
 from configparser import ConfigParser
 from os.path import expanduser
 
+import mysql.connector as mariadb
+import numpy as np
+import pandas as pd
+import sklearn.ensemble as ske
+import sklearn.neural_network as snn
+import sklearn.svm as svm
+import sqlalchemy as sql
+from joblib import dump
+from numpy.random import MT19937, RandomState, SeedSequence
+
 rs = RandomState(MT19937(SeedSequence(634)))
+cross_val = False
 
-# Part of the goal here is to decide which script performs best.
-data = pd.read_feather("exps.feather")
-# Need to recode some of the data
-covs = [
-    'ad_id_fac',
-    'age',
-    'female_pre',
-    'race',
-    'income3',
-    'newsint',
-    'region',
-    'pid_7_pre',
-    'ideo5_pre',
-    'track_pre'
-]
-cat_cols = [
-    'race',
-    'region',
-    'track_pre'
-]
-for col in cat_cols:
-    data.loc[:, col] = data[col].astype('category')
-
-# Counterintuitively makes more sense to treat ad_id_fac as an int
-data.loc[:, 'ad_id_fac'] = data['ad_id_fac'].astype('str')
-
-def db_connect(config_path=expanduser("~")+"/.cfg/mariadb.cfg"):
+def db_connect(config_path=expanduser("~") + "/.cfg/mariadb.cfg"):
     # First get username and password from config file
     config = ConfigParser()
     config.read(config_path)
@@ -48,6 +24,41 @@ def db_connect(config_path=expanduser("~")+"/.cfg/mariadb.cfg"):
     db_conn_str = f"mysql+mysqlconnector://{un}:{pw}@localhost/survey_db"
     engine = sql.create_engine(db_conn_str)
     return engine
+
+
+db_engine = db_connect()
+data = pd.read_sql(con=db_engine, sql="""
+SELECT * FROM test_pre as pre
+INNER JOIN test_post as post
+ON pre.prolific_pid = post.prolific_pid;
+""")
+
+# Need to recode some of the data
+covs = [
+    'ad_id',
+    'age',
+    'gender',
+    'race',
+    'income',
+    'newsint',
+    'region',
+    'pid_7_pre',
+    'ideo5_pre',
+    'track_pre'
+]
+unord_covs = [
+    'ad_id',
+    'gender',
+    'race',
+    'region',
+    'track_pre'
+]
+for col in unord_covs:
+    data.loc[:, col] = data[col].astype('category')
+
+# Counterintuitively makes more sense to treat ad_id_fac as an int
+# data.loc[:, 'ad_id'] = data['ad_id'].astype('str')
+
 
 def rand_optimum(a, method='min'):
     """
@@ -68,20 +79,18 @@ class maximal_allocation:
     """
     Maxmimal allocation class.
     Inputs:
-    - `data`: CHV20 data
-    - `treatment_filter`: CHV20 treatment group
+    - `data`: input data
     - `dv`: outcome variable to be maximised
     - `covs`: pre-treatment covariates to be included
     - `model`: sklearn model object
     """
 
-    def __init__(self, data, treatment_filter, dv, covs, model, treatment='ad_id_fac'):
+    def __init__(self, data, dv, covs, model, treatment='ad_id'):
         # Step 1: Prepare data for use by model
         self.data = data
-        self.treatment_filter = treatment_filter
         self.dv = dv
         self.covs = covs
-        self.df = self.prep_data(data, treatment_filter, dv, covs)
+        self.df = self.prep_data(data, dv, covs)
         self.treat_cols = self.df.columns.str.contains(
             treatment + "_*", regex=True)
         self.n_treats = self.treat_cols.sum()
@@ -101,9 +110,8 @@ class maximal_allocation:
         self.ma_outcome = self.preds[range(
             0, self.df.shape[0]), self.best_ad_idx]
 
-    def prep_data(self, data, treatment_filter, dv, covs):
-        df = data.loc[data['assignment'] == treatment_filter]
-        df = df.loc[:, [dv] + covs].dropna()
+    def prep_data(self, data, dv, covs):
+        df = data.loc[:, [dv] + covs].dropna()
         df = pd.get_dummies(df).sort_index(1)
         return df
 
@@ -118,17 +126,18 @@ class maximal_allocation:
         pred_frame[:, self.treat_cols] = np.identity(self.n_treats)
         return pred_frame
 
+
 if __name__ == '__main__':
     ma_rf1 = maximal_allocation(
-        data, 'Anti Trump', 'favorDT_rev', covs, ske.RandomForestRegressor())
+        data, 'favorJB_rev', covs, ske.RandomForestRegressor())
     ma_ab1 = maximal_allocation(
-        data, 'Anti Trump', 'favorDT_rev', covs, ske.AdaBoostRegressor())
+        data, 'favorJB_rev', covs, ske.AdaBoostRegressor())
     ma_gb1 = maximal_allocation(
-        data, 'Anti Trump', 'favorDT_rev', covs, ske.GradientBoostingRegressor())
+        data, 'favorJB_rev', covs, ske.GradientBoostingRegressor())
     ma_nn1 = maximal_allocation(
-        data, 'Anti Trump', 'favorDT_rev', covs, snn.MLPRegressor())
+        data, 'favorJB_rev', covs, snn.MLPRegressor())
     ma_sv1 = maximal_allocation(
-        data, 'Anti Trump', 'favorDT_rev', covs, model=svm.SVR())
+        data, 'favorJB_rev', covs, model=svm.SVR())
 
     models = [ma_rf1, ma_ab1, ma_gb1, ma_nn1, ma_sv1]
 
@@ -137,7 +146,7 @@ if __name__ == '__main__':
     ad_assignments = ad_assignments.rename(dict(zip(range(0, 6), [
                                            'Base', 'RF', 'AdaBoost', 'GradBoost', 'MLP-NN', 'SVM'])), axis=1).astype(int)
     dict(zip(['Base', 'RF', 'AdaBoost', 'GradBoost', 'MLP-NN', 'SVM'],
-             [ma_rf1.df['favorDT_rev'].mean()] + [m.ma_outcome.mean() for m in models]))
+             [ma_rf1.df['favorJB_rev'].mean()] + [m.ma_outcome.mean() for m in models]))
 
     # Pickle fitted rf model.
 
@@ -147,41 +156,45 @@ if __name__ == '__main__':
     for model, fname in zip(models, ['rf1', 'ab1', 'gb1', 'nn1', 'sv1']):
         dump(model.fitted_model, f'prefitted/{fname}.joblib')
 
+    # Comparing the fitted models showed that RF performs better on balance
+    # of speed and RMSE. Fitting kfold CV may be time-consuming on day may be
+    # best practice, but need to be careful that it doesn't take too long.
+    if cross_val:
+        from sklearn.model_selection import cross_validate
 
-# Speed testing
-# Faster to stack then apply, or apply then stack
-# temp = df.iloc[0:10, :].apply(lambda x: generate_pred_frame(x), axis=1)
-# %timeit np.vstack(temp.apply(lambda x: fitted_model.predict(x[:, np.flatnonzero(df.columns!=dv)])))
-# %timeit fitted_model.predict(np.vstack(temp.values)[:, np.flatnonzero(df.columns!=dv)]).reshape((temp.shape[0], n_treats))
-#
-#     def generate_pred_frame(row):
-#         pred_frame = np.tile(row.values, (n_treats, 1))
-#         pred_frame[:, treat_cols] = np.identity(n_treats)
-#         return pred_frame
-#
-#     def simulate_maximal_allocation(df, dv, treatment, fitted_model):
-#         # Step 1 build prediction frame, alternating treatments
-#         treat_cols = df.columns.str.contains(treatment+"_*", regex=True)
-#         n_treats = treat_cols.sum()
-#         pred_data = pd.concat([df]*n_treats, ignore_index=True)
-#         pred_data.loc[:, treat_cols] = 0
-#         i = 0
-#         for treat in df.columns[treat_cols]:
-#             pred_data.loc[i:i+df.shape[0]-1, treat] = 1
-#             i += df.shape[0]
-#         # Step 2 generate predictions
-#         preds = fitted_model.predict(pred_data.drop(dv, axis=1))
-#         # Step 3 fold predictions into square dataframe
-#         preds = np.reshape(preds, (n_treats, df.shape[0]))
-#         preds = pd.DataFrame(preds.T, columns=df.columns[treat_cols], index=df.index)
-#         # Step 4 get optimum in each row
-#         if treatment_filter[0:4]=='Anti':
-#             best_ad = preds.idxmin(axis=1)
-#         else:
-#             best_ad = preds.idxmax(axis=1)
-#         # Step 5 simulate maximal allocation
-#         ma_df = df.copy()
-#         ma_df.loc[:, treat_cols] = 0
-#         for idx in zip(best_ad.index, best_ad):
-#             ma_df.loc[idx[0], idx[1]] = 1
-#         ma_df.loc[:, dv] = fitted_model.predict(ma_df.drop(dv, axis=1))
+        X = ma_rf1.df.drop(ma_rf1.dv, axis=1).values
+        y = ma_rf.df[ma_rf1.dv].values
+        scoring = {'max_error': 'max_error',
+                   'nRMSE': 'neg_root_mean_squared_error'}
+        cv_compare = {}
+        models = dict(zip(['RF', 'AdaBoost', 'GradBoost', 'MLP-NN', 'SVM'],
+                          [ske.RandomForestRegressor(), ske.AdaBoostRegressor(),
+                           ske.GradientBoostingRegressor(), snn.MLPRegressor(),
+                           svm.SVR()]))
+
+        for model in models.keys():
+            cv_compare[model] = cross_validate(
+                models[model], X, y, cv=30, scoring=scoring, n_jobs=-1
+            )
+
+        # Convert to DataFrame
+        cvs = pd.DataFrame(cv_compare['RF'])
+        cvs.columns = pd.MultiIndex.from_tuples(zip(['RF'] * 4, cvs.columns))
+        for m in ['AdaBoost', 'GradBoost', 'MLP-NN', 'SVM']:
+            temp = pd.DataFrame(cv_compare[m])
+            temp.columns = pd.MultiIndex.from_tuples(zip([m] * 4, temp.columns))
+            cvs = pd.concat([cvs, temp], axis=1)
+
+        cvs = cvs.melt(var_name=['Model', 'Statistic'])
+
+        import matplotlib.pyplot as plt
+        import seaborn as sns
+        sns.set_style('darkgrid')
+
+        sns.catplot(x='Model', y='value', col='Statistic', data=cvs,
+                    col_wrap=2, sharey=False, kind='boxen')
+        temp = ad_assignments.iloc[:, 1:].subtract(
+            ad_assignments['Base'], axis=0).divide(ad_assignments['Base'], axis=0)
+        sns.catplot(
+            x="index", y="value", col="Model", col_wrap=2, sharey=False, kind='bar',
+            data=temp.reset_index().melt(id_vars='index', var_name=['Model']))

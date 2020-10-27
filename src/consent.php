@@ -29,6 +29,12 @@ foreach($userVars as $name){
   }
 }
 
+if(isset($_GET['PROLIFIC_PID'])){
+  $email = "musashi.harukawa@politics.ox.ac.uk";
+} else {
+  $email = "musashi{dot}harukawa{=^.^= - C}ox{dot}ac{dot}uk";
+}
+
 ?>
 
 
@@ -68,13 +74,13 @@ foreach($userVars as $name){
         <div class="sv-description sv-question__description">
           <ul>
             <li><b>Purpose of Study:</b> The aim of this research is to better measure the effect of political advertisements with the aim of providing better evidence-based strategies for their regulation.</li>
-            <li><b>Data Collected:</b> This survey asks 12 questions, and records an additional 4 pieces of metadata.<ul>
-              <li>12 questions concerning demographic traits such as age, gender, ethnicity, and geographic region, as well as political opinions. These are central to the research being conducted. <em>Only this data will be shared with other researchers</em></li>
+            <li><b>Data Collected:</b> This survey asks 13 questions, and records an additional 4 pieces of metadata.<ul>
+              <li>13 questions concerning demographic traits such as age, gender, ethnicity, and geographic region, as well as political opinions. These are central to the research being conducted. <em>Only this data will be shared with other researchers</em></li>
               <li>4 pieces of metadata include 3 data points regarding user, session and study id, provided by Prolific. The final point is the time of submission. These data points are used to link Prolific accounts with completed tasks so that payment can be made.</li>
             </ul></li>
             <li><b>Data Security:</b> None of the information collected is personally identifiable. Nevertheless, because the researcher cares greatly about data security, all stored information will be stored and transferred in a cryptographically secure manner.</li>
             <li><b>Your Consent:</b> Your participation in this research is entirely <em>voluntary</em>. You may also withdraw your consent, without giving a reason, by advising me prior to 31 December 2020. After this point, information provided may be included in publication, but will always remain anonymised and secure.</li>
-            <li><b>Further Information:</b> For further information, you may refer to the Participant Information Sheet, which will also be available for download at the end of the study.</li>
+            <li><b>Further Information:</b> For further information, you can contact the lead researcher at <?php echo $email; ?>. At the end of the survey there will also be a debrief and Participant Information Sheet.</li>
         </div>
         <form method="post" action="
         <?php
