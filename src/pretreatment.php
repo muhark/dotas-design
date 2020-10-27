@@ -426,7 +426,7 @@ foreach($userVars as $name){
           <div class="sv-question__header sv-question__header--location--top">
             <h5 class="sv-title sv-question__title sv-question__title--required" aria-label="Generally speaking, would you say things in the country are going in the right direction, or are they off on the wrong track?" id="sq_106_ariaTitle">
               <span style="position: static;" class="sv-question__num">7.</span>
-              <span style="position: static;">Generally speaking, would you say things in the country are going in the right direction, or are they off on the wrong track?</span>
+              <span style="position: static;">Thinking about the past 4 years, generally speaking, would you say things in the country are going in the right direction, or are they off on the wrong track?</span>
               <span class="sv-question__required-text">*</span>
             </h5>
             <div class="sv-description sv-question__description">

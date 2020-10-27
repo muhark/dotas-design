@@ -54,12 +54,68 @@ foreach($userVars as $name){
            "&SESSION_ID=" . $userData['SESSION_ID'];
       ?>" target="_self">
 
+        <!-- FMC-TR -->
+        <div class="sv-row sv-clearfix">
+          <div class="sv-question sv-row__question" id="fmc_tr" name="fmc_tr" style="flex: 1 1 100%; width: 100%; min-width: 300px; max-width: initial;">
+            <div class="sv-question__header sv-question__header--location--top">
+              <h5 class="sv-title sv-question__title sv-question__title--required">
+                <span style="position: static;" class="sv-question__num">1.</span>
+                <span style="position: static;">
+                  Regarding the advertisement you just watched, which candidate says that they approve of the message?
+                </span>
+                <span class="sv-question__required-text">*</span>
+              </h5>
+              <div class="sv-description sv-question__description">
+                <span style="position: static;">
+                  <em>"My name is ______ and I approve of this message".</em>
+                </span>
+              </div>
+            </div>
+            <div class="sv-question__content">
+              <div role="alert" class="sv-question__erbox sv-question__erbox--location--top" id="sq_107_errors" style="display: none;"></div>
+              <div class="sv-selectbase">
+
+                <div class="sv-item sv-radio sv-selectbase__item sv-q-col-1 sv-radio--allowhover">
+                  <label class="sv-selectbase__label">
+                    <input type="radio" name="fmc_tr" id="fmc_tr" aria-required="true" role="radio" value="1" required>
+                    <span class="sv-item__control-label" title="Donald J. Trump">
+                      <span style="position: static;">Donald J. Trump</span>
+                    </span>
+                  </label>
+                </div>
+
+                <div class="sv-item sv-radio sv-selectbase__item sv-q-col-1 sv-radio--allowhover">
+                  <label class="sv-selectbase__label">
+                    <input type="radio" name="fmc_tr" id="fmc_tr" aria-required="true" role="radio" value="2" required>
+                    <span class="sv-item__control-label" title="Joe Biden">
+                      <span style="position: static;">Joe Biden</span>
+                    </span>
+                  </label>
+                </div>
+
+                <div class="sv-item sv-radio sv-selectbase__item sv-q-col-1 sv-radio--allowhover">
+                  <label class="sv-selectbase__label">
+                    <input type="radio" name="fmc_tr" id="fmc_tr" aria-required="true" role="radio" value="3" required>
+                    <span class="sv-item__control-label" title="Neither">
+                      <span style="position: static;">Neither</span>
+                    </span>
+                  </label>
+                </div>
+
+              </div>
+              <div class="sv-description sv-question__description" style="display: none;">
+                <span style="position: static;"></span>
+              </div>
+          </div>
+        </div>
+        </div>
+
         <!-- Favorability favorDT_rev -->
         <div class="sv-row sv-clearfix">
           <div class="sv-question sv-row__question" id="favorDT_rev" name="favorDT_rev" style="flex: 1 1 100%; width: 100%; min-width: 300px; max-width: initial;">
             <div class="sv-question__header sv-question__header--location--top">
               <h5 class="sv-title sv-question__title sv-question__title--required">
-                <span style="position: static;" class="sv-question__num">1.</span>
+                <span style="position: static;" class="sv-question__num">2.</span>
                 <span style="position: static;">
                   On a scale of 1-5, how would you rate Republican Presidential Candidate Donald Trump?
                 </span>
@@ -133,7 +189,7 @@ foreach($userVars as $name){
           <div class="sv-question sv-row__question" id="favorJB_rev" name="favorJB_rev" style="flex: 1 1 100%; width: 100%; min-width: 300px; max-width: initial;">
             <div class="sv-question__header sv-question__header--location--top">
               <h5 class="sv-title sv-question__title sv-question__title--required">
-                <span style="position: static;" class="sv-question__num">1.</span>
+                <span style="position: static;" class="sv-question__num">3.</span>
                 <span style="position: static;">
                   On a scale of 1-5, how would you rate Democratic Presidential Candidate Joe Biden?
                 </span>
@@ -207,7 +263,7 @@ foreach($userVars as $name){
           <div class="sv-question sv-row__question" id="general_vote" name="general_vote" style="flex: 1 1 100%; width: 100%; min-width: 300px; max-width: initial;">
             <div class="sv-question__header sv-question__header--location--top">
               <h5 class="sv-title sv-question__title sv-question__title--required">
-                <span style="position: static;" class="sv-question__num">2.</span>
+                <span style="position: static;" class="sv-question__num">4.</span>
                 <span style="position: static;">
                   Thinking about the 2020 Presidential Election between Donald Trump for the Republicans and Joe Biden for the Democrats, which of the following applies to you?
                 </span>
