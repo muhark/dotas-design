@@ -5,9 +5,9 @@ This repository contains the code for a dynamic survey experiment, used in my DP
 
 # PROJECT STATUS
 
-Stage: **TEST**
+Stage: **PROD**
 
-Days to election: **7**
+Days to election: **6**
 
 # TEST CHECKLIST
 
@@ -15,12 +15,12 @@ Days to election: **7**
     - [x] Browser compatibility checks
         - [x] Video
         - [x] Text
-    - [ ] Bug checks
+    - [x] Bug checks
 - [x] Back-end
     - [x] Database stability
-    - [ ] Global configurability
-- [ ] Prolific Compatibility
-    - [ ] Full-lap Prolific access
+    - [x] Global configurability
+- [x] Prolific Compatibility
+    - [x] Full-lap Prolific access
 
 # DEV CHECKLIST
 

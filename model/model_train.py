@@ -29,8 +29,8 @@ def db_connect(config_path=expanduser("~") + "/.cfg/mariadb.cfg"):
 
 db_engine = db_connect()
 data = pd.read_sql(con=db_engine, sql="""
-SELECT * FROM test_pre as pre
-INNER JOIN test_post as post
+SELECT * FROM prod_pre as pre
+INNER JOIN prod_post as post
 ON pre.prolific_pid = post.prolific_pid;
 """)
 
@@ -169,7 +169,7 @@ if __name__ == '__main__':
         from sklearn.model_selection import cross_validate
 
         X = ma_rf1.df.drop(ma_rf1.dv, axis=1).values
-        y = ma_rf.df[ma_rf1.dv].values
+        y = ma_rf1.df[ma_rf1.dv].values
         scoring = {'max_error': 'max_error',
                    'nRMSE': 'neg_root_mean_squared_error'}
         cv_compare = {}

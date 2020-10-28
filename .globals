@@ -1,4 +1,4 @@
 [GLOBALS]
-MODE = test
-STAGE = train
-MODEL = rf1
+MODE = prod
+STAGE = predict
+MODEL = ab1
