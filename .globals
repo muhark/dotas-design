@@ -1,4 +1,4 @@
 [GLOBALS]
 MODE = prod
 STAGE = predict
-MODEL = ab1
+MODEL = rf1
