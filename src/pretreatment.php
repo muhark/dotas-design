@@ -6,8 +6,6 @@
   <title>Political Ads Survey</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=font1|font2|etc" type="text/css">
   <link rel="stylesheet" href="/survey.css" type="text/css">
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script> -->
-  <!-- <script src="https://assets.crowd.aws/crowd-html-elements.js"></script> -->
 </head>
 
 <body>
@@ -26,23 +24,11 @@ foreach($userVars as $name){
     // echo $name . " is set to " . $_GET[$name] . "<br>";
     $userData[$name] = $_GET[$name];
   } else {
-    echo $name . " is unset<br>";
+    // echo $name . " is unset<br>";
     $userData[$name] = "UNSET_" . $name;
   }
 }
 ?>
-  <!-- <crowd-instructions link-text="View instructions" link-type="button">
-    <short-summary>
-    </short-summary>
-    <detailed-instructions>
-      <h3>Survey Overview</h3>
-      <p>This survey consists of three parts, taking 3-5 minutes in total.</p>
-      <li>In the first part, you will be asked a number of questions about yourself. Please answer truthfully to the best of your ability, and note that all answers will be handled in line with GDPR and academic ethics and anonymity requirements.
-      </li>
-      <li>In the second part, you will be shown a short campaign advertisement video. You do not need to do anything, but please pay attention to the video.</li>
-      <li>In the final part, you will be asked a few questions about the video.</li>
-    </detailed-instructions>
-  </crowd-instructions> -->
 
 <div id="surveyContainer" class="sv-root-modern">
   <!-- TITLE -->

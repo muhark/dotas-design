@@ -30,7 +30,7 @@ foreach($userVars as $name){
   } else {
     // echo $name . " is unset<br>";
     die("No valid " . $name .
-        "found. Please go back and make sure you have not altered the URL.");
+        " found; without this you cannot be paid for your work. Please go back and make sure you have not altered the URL.");
   }
 }
 
@@ -64,7 +64,7 @@ try {
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
   // Prepare SQL and bind parameters
-  $stmt = $conn->prepare("INSERT INTO test_post" .
+  $stmt = $conn->prepare("INSERT INTO prod_post" .
   "(prolific_pid, study_id, session_id, fmc_tr, favorDT_rev, favorJB_rev, general_vote)" .
   "VALUES (:prolific_pid, :study_id, :session_id, :fmc_tr, :favorDT_rev, :favorJB_rev, :general_vote)");
   $stmt->bindParam(':prolific_pid', $prolific_pid);

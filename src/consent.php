@@ -21,10 +21,9 @@ $userData = array();
 
 foreach($userVars as $name){
   if(isset($_GET[$name])){
-    // echo $name . " is set to " . $_GET[$name] . "<br>";
     $userData[$name] = $_GET[$name];
   } else {
-    echo $name . " is unset<br>";
+    echo $name . " is unset. This may result in significant delays to your payment; please use the link provided by Prolific to access this website.<br>";
     $userData[$name] = "UNSET_" . $name;
   }
 }
@@ -68,9 +67,6 @@ if(isset($_GET['PROLIFIC_PID'])){
         <h5 class="sv-question__title">
           Key Points regarding Data and Consent:
         </h5>
-        <!-- <h5 class="sv-question__title">
-          Prior to starting the survey, please take a moment to <a href="/Participant-Information-Sheet.docx">download and read the Participant Information Sheet</a>, and record your consent to the following below.
-        </h5> -->
         <div class="sv-description sv-question__description">
           <ul>
             <li><b>Purpose of Study:</b><br>

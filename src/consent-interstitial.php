@@ -16,7 +16,7 @@ foreach($userVars as $name){
     // echo $name . " is set to " . $_GET[$name] . "<br>";
     $userData[$name] = $_GET[$name];
   } else {
-    echo $name . " is unset<br>";
+    // echo $name . " is unset<br>";
     $userData[$name] = "UNSET_" . $name;
   }
 }
@@ -51,7 +51,7 @@ try {
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
   // Prepare SQL and bind parameters
-  $stmt = $conn->prepare("INSERT INTO test_consent" .
+  $stmt = $conn->prepare("INSERT INTO prod_consent" .
   "(prolific_pid, study_id, session_id, consent1, consent2, consent3, consent4)" .
   "VALUES (:prolific_pid, :study_id, :session_id, :consent1, :consent2, :consent3, :consent4 )");
   $stmt->bindParam(':prolific_pid', $prolific_pid);

@@ -25,7 +25,7 @@ foreach($userVars as $name){
     // echo $name . " is set to " . $_GET[$name] . "<br>";
     $userData[$name] = $_GET[$name];
   } else {
-    echo $name . " is unset<br>";
+    // echo $name . " is unset<br>";
     $userData[$name] = "UNSET_" . $name;
   }
 }
@@ -89,7 +89,7 @@ try {
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
   // Prepare SQL and bind parameters
-  $stmt = $conn->prepare("INSERT INTO test_pre" .
+  $stmt = $conn->prepare("INSERT INTO prod_pre" .
   "(prolific_pid, study_id, session_id, age, gender, race, income, state, newsint, track_pre, pid_7_pre, ideo5_pre, ad_id, brief_id)" .
   "VALUES (:prolific_pid, :study_id, :session_id, :age, :gender, :race, :income, :state, :newsint, :track_pre, :pid_7_pre, :ideo5_pre, :ad_id, :brief_id)");
   $stmt->bindParam(':prolific_pid', $prolific_pid);
@@ -131,7 +131,7 @@ try {
 $conn = null;
 
 // Generate briefing page
-$briefURL = "/home/" . get_current_user() . "/Dev/dotas-design/briefs/" . $brief . ".html";
+$briefURL = "/home/" . get_current_user() . "/dotas-design/briefs/" . $brief . ".html"; // CHANGEME
 $briefFile = fopen($briefURL, "r");
 echo fread($briefFile, filesize($briefURL));
 fclose($briefFile);
