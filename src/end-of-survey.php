@@ -37,6 +37,8 @@ foreach($userVars as $name){
 // Parse POST data
 $dbData = array();
 $postVars = array(
+  'fmc_tr',
+  'favorDT_rev',
   'favorJB_rev',
   'general_vote'
 );
@@ -63,11 +65,13 @@ try {
 
   // Prepare SQL and bind parameters
   $stmt = $conn->prepare("INSERT INTO test_post" .
-  "(prolific_pid, study_id, session_id, favorDT_rev, favorJB_rev, general_vote)" .
-  "VALUES (:prolific_pid, :study_id, :session_id, :favorJB_rev, :general_vote)");
+  "(prolific_pid, study_id, session_id, fmc_tr, favorDT_rev, favorJB_rev, general_vote)" .
+  "VALUES (:prolific_pid, :study_id, :session_id, :fmc_tr, :favorDT_rev, :favorJB_rev, :general_vote)");
   $stmt->bindParam(':prolific_pid', $prolific_pid);
   $stmt->bindParam(':study_id', $study_id);
   $stmt->bindParam(':session_id', $session_id);
+  $stmt->bindParam(':fmc_tr', $fmc_tr);
+  $stmt->bindParam(':favorDT_rev', $favorDT_rev);
   $stmt->bindParam(':favorJB_rev', $favorJB_rev);
   $stmt->bindParam(':general_vote', $general_vote);
 
@@ -75,6 +79,8 @@ try {
   $prolific_pid = $userData['PROLIFIC_PID'];
   $study_id = $userData['STUDY_ID'];
   $session_id = $userData['SESSION_ID'];
+  $fmc_tr = $dbData['fmc_tr'];
+  $favorDT_rev = $dbData['favorDT_rev'];
   $favorJB_rev = $dbData['favorJB_rev'];
   $general_vote = $dbData['general_vote'];
   $stmt->execute();
