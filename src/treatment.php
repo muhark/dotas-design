@@ -37,7 +37,7 @@ $postVars = array(
   'gender',
   'race',
   'income',
-  'region',
+  'state',
   'newsint',
   'track_pre',
   'pid_7_pre',
@@ -46,6 +46,7 @@ $postVars = array(
 $dbData = array();
 foreach($postVars as $name){
   if(isset($_POST[$name])){
+    // echo $_POST[$name] . "<br>";
     $dbData[$name] = $_POST[$name];
   }
 }
@@ -69,7 +70,7 @@ $ad_choice = json_decode($response);
 
 // Two responses: ad_choice gives video in ad.php, brief gives statement
 // on this page.
-$video = $ad_choice->video;
+$video = "ad-" . $ad_choice->video;
 $brief = $ad_choice->brief;
 
 // Write the form responses to the database before continuing
@@ -89,8 +90,8 @@ try {
 
   // Prepare SQL and bind parameters
   $stmt = $conn->prepare("INSERT INTO test_pre" .
-  "(prolific_pid, study_id, session_id, age, gender, race, income, region, newsint, track_pre, pid_7_pre, ideo5_pre, ad_id, brief_id)" .
-  "VALUES (:prolific_pid, :study_id, :session_id, :age, :gender, :race, :income, :region, :newsint, :track_pre, :pid_7_pre, :ideo5_pre, :ad_id, :brief_id)");
+  "(prolific_pid, study_id, session_id, age, gender, race, income, state, newsint, track_pre, pid_7_pre, ideo5_pre, ad_id, brief_id)" .
+  "VALUES (:prolific_pid, :study_id, :session_id, :age, :gender, :race, :income, :state, :newsint, :track_pre, :pid_7_pre, :ideo5_pre, :ad_id, :brief_id)");
   $stmt->bindParam(':prolific_pid', $prolific_pid);
   $stmt->bindParam(':study_id', $study_id);
   $stmt->bindParam(':session_id', $session_id);
@@ -98,7 +99,7 @@ try {
   $stmt->bindParam(':gender', $gender);
   $stmt->bindParam(':race', $race);
   $stmt->bindParam(':income', $income);
-  $stmt->bindParam(':region', $region);
+  $stmt->bindParam(':state', $state);
   $stmt->bindParam(':newsint', $newsint);
   $stmt->bindParam(':track_pre', $track_pre);
   $stmt->bindParam(':pid_7_pre', $pid_7_pre);
@@ -114,12 +115,12 @@ try {
   $gender = $dbData['gender'];
   $race = $dbData['race'];
   $income = $dbData['income'];
-  $region = $dbData['region'];
+  $state = $dbData['state'];
   $newsint = $dbData['newsint'];
   $track_pre = $dbData['track_pre'];
   $pid_7_pre = $dbData['pid_7_pre'];
   $ideo5_pre = $dbData['ideo5_pre'];
-  $ad_id = $video;
+  $ad_id = $ad_choice->video;
   $brief_id = $brief;
   $stmt->execute();
 

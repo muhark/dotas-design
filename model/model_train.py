@@ -11,8 +11,9 @@ import sqlalchemy as sql
 from joblib import dump
 from numpy.random import MT19937, RandomState, SeedSequence
 
+from misc import *
+
 rs = RandomState(MT19937(SeedSequence(634)))
-cross_val = False
 
 def db_connect(config_path=expanduser("~") + "/.cfg/mariadb.cfg"):
     # First get username and password from config file
@@ -33,6 +34,8 @@ INNER JOIN test_post as post
 ON pre.prolific_pid = post.prolific_pid;
 """)
 
+data.loc[:, 'region'] = data['state'].apply(lambda x: state_region[x])
+data.loc[:, 'gender'] = data['gender'].apply(lambda x: 0 if x==0 else 1)
 # Need to recode some of the data
 covs = [
     'ad_id',
@@ -48,13 +51,16 @@ covs = [
 ]
 unord_covs = [
     'ad_id',
-    'gender',
     'race',
     'region',
     'track_pre'
 ]
-for col in unord_covs:
-    data.loc[:, col] = data[col].astype('category')
+
+# Manually specify n_categories in case category appears in predict but not in train.
+data.loc[:, 'ad_id'] = pd.Categorical(data['ad_id'], categories = range(1, 6), ordered=False)
+data.loc[:, 'race'] = pd.Categorical(data['race'], categories = range(1, 9), ordered=False)
+data.loc[:, 'region'] = pd.Categorical(data['region'], categories = range(1, 5), ordered=False)
+data.loc[:, 'track_pre'] = pd.Categorical(data['track_pre'], categories = ['not sure', 'right track', 'wrong track'], ordered=False)
 
 # Counterintuitively makes more sense to treat ad_id_fac as an int
 # data.loc[:, 'ad_id'] = data['ad_id'].astype('str')

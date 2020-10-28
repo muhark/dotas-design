@@ -1,0 +1,4 @@
+[GLOBALS]
+MODE = test
+STAGE = train
+MODEL = rf1
