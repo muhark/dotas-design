@@ -310,52 +310,78 @@ foreach($userVars as $name){
 
       <!-- REGION -->
       <div class="sv-row sv-clearfix">
-        <div class="sv-question sv-row__question" id="sq_104" name="region" aria-labelledby="sq_104_ariaTitle" style="flex: 1 1 100%; width: 100%; min-width: 300px; max-width: initial;">
+        <div class="sv-question sv-row__question" id="sq_104" name="state" aria-labelledby="sq_104_ariaTitle" style="flex: 1 1 100%; width: 100%; min-width: 300px; max-width: initial;">
           <div class="sv-question__header sv-question__header--location--top">
             <h5 class="sv-title sv-question__title sv-question__title--required" id="sq_104_ariaTitle">
               <span style="position: static;" class="sv-question__num">5.</span>
-              <span style="position: static;">Which region of the United States do you live in?</span>
+              <span style="position: static;">Which state of the United States do you live in?</span>
               <span class="sv-question__required-text">*</span>
             </h5>
             <div class="sv-description sv-question__description">
-              <span style="position: static;"></span>
+              <span style="position: static;">
+                Choose the state where you have lived the greatest part of the last 6 months.
+              </span>
             </div>
           </div>
           <div class="sv-question__content">
             <div role="alert" class="sv-question__erbox sv-question__erbox--location--top" id="sq_104_errors" style="display: none;"></div>
-              <legend aria-label="Which region of the United States do you live in?"></legend>
-              <div class="sv-item sv-radio sv-selectbase__item sv-q-col-1 sv-radio--allowhover">
-                <label class="sv-selectbase__label">
-                  <input type="radio" name="region" id="region" aria-required="true" aria-label="West" role="radio" value="4" required>
-                  <span class="sv-item__control-label" title="West">
-                    <span style="position: static;">West</span>
-                  </span>
-                </label>
-              </div>
-              <div class="sv-item sv-radio sv-selectbase__item sv-q-col-1 sv-radio--allowhover">
-                <label class="sv-selectbase__label">
-                  <input type="radio" name="region" id="region" aria-required="true" aria-label="South" role="radio" value="3" required>
-                  <span class="sv-item__control-label" title="South">
-                    <span style="position: static;">South</span>
-                  </span>
-                </label>
-              </div>
-              <div class="sv-item sv-radio sv-selectbase__item sv-q-col-1 sv-radio--allowhover">
-                <label class="sv-selectbase__label">
-                  <input type="radio" name="region" id="region" aria-required="true" aria-label="Midwest" role="radio" value="2" required>
-                  <span class="sv-item__control-label" title="Midwest">
-                    <span style="position: static;">Midwest</span>
-                  </span>
-                </label>
-              </div>
-              <div class="sv-item sv-radio sv-selectbase__item sv-q-col-1 sv-radio--allowhover">
-                <label class="sv-selectbase__label">
-                  <input type="radio" name="region" id="region" aria-required="true" aria-label="Northeast" role="radio" value="1" required>
-                  <span class="sv-item__control-label" title="Northeast">
-                    <span style="position: static;">Northeast</span>
-                  </span>
-                </label>
-              </div>
+              <legend aria-label="Which state of the United States do you live in?"></legend>
+                <div>
+                  <select id="state" name="state" class="sv-dropdown" required>
+                    <option value="">Choose...</option>
+                  	<option value="AL">Alabama</option>
+                  	<option value="AK">Alaska</option>
+                  	<option value="AZ">Arizona</option>
+                  	<option value="AR">Arkansas</option>
+                  	<option value="CA">California</option>
+                  	<option value="CO">Colorado</option>
+                  	<option value="CT">Connecticut</option>
+                  	<option value="DE">Delaware</option>
+                  	<option value="DC">District Of Columbia</option>
+                  	<option value="FL">Florida</option>
+                  	<option value="GA">Georgia</option>
+                  	<option value="HI">Hawaii</option>
+                  	<option value="ID">Idaho</option>
+                  	<option value="IL">Illinois</option>
+                  	<option value="IN">Indiana</option>
+                  	<option value="IA">Iowa</option>
+                  	<option value="KS">Kansas</option>
+                  	<option value="KY">Kentucky</option>
+                  	<option value="LA">Louisiana</option>
+                  	<option value="ME">Maine</option>
+                  	<option value="MD">Maryland</option>
+                  	<option value="MA">Massachusetts</option>
+                  	<option value="MI">Michigan</option>
+                  	<option value="MN">Minnesota</option>
+                  	<option value="MS">Mississippi</option>
+                  	<option value="MO">Missouri</option>
+                  	<option value="MT">Montana</option>
+                  	<option value="NE">Nebraska</option>
+                  	<option value="NV">Nevada</option>
+                  	<option value="NH">New Hampshire</option>
+                  	<option value="NJ">New Jersey</option>
+                  	<option value="NM">New Mexico</option>
+                  	<option value="NY">New York</option>
+                  	<option value="NC">North Carolina</option>
+                  	<option value="ND">North Dakota</option>
+                  	<option value="OH">Ohio</option>
+                  	<option value="OK">Oklahoma</option>
+                  	<option value="OR">Oregon</option>
+                  	<option value="PA">Pennsylvania</option>
+                  	<option value="RI">Rhode Island</option>
+                  	<option value="SC">South Carolina</option>
+                  	<option value="SD">South Dakota</option>
+                  	<option value="TN">Tennessee</option>
+                  	<option value="TX">Texas</option>
+                  	<option value="UT">Utah</option>
+                  	<option value="VT">Vermont</option>
+                  	<option value="VA">Virginia</option>
+                  	<option value="WA">Washington</option>
+                  	<option value="WV">West Virginia</option>
+                  	<option value="WI">Wisconsin</option>
+                  	<option value="WY">Wyoming</option>
+                  </select>
+                </div>
             <div class="sv-description sv-question__description" style="display: none;">
               <span style="position: static;"></span>
             </div>
