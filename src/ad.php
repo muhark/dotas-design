@@ -48,7 +48,10 @@ foreach($userVars as $name){
         <span style="position: static;">Short Advertisement</span>
       </h4>
       <div class="sv-description sv-page__description">
-        <span style="position: static;">Please watch this video from beginning to end, without skipping ahead. Once the video has been watched, the option to proceed to the next page will become available.</span>
+        <span style="position: static;">
+          Please watch this video from beginning to end, without skipping ahead. Once the video has been watched, the option to proceed to the next page will become available.<br>
+          If the ad does not load, try disabling your ad blocker and reloading the page.
+        </span>
       </div>
 
       <video width="480" height="400" controls="false" poster="" id="video">
