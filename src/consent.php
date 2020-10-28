@@ -56,7 +56,7 @@ if(isset($_GET['PROLIFIC_PID'])){
 
     <!-- SUBHEADER AND BRIEF -->
     <div class="sv-page sv-page__description">
-      <h4 class="sv-title sv-page__title">Participant Consent Form</h4>
+      <h4 class="sv-title sv-page__title">Participant Consent</h4>
       <div class="sv-description sv-page__description">
         <h6>Doctoral Research in Political Campaigning</h6>
         <p>Central University Research Ethics Committee (CUREC) Approval Reference: SSH_DPIR_C1A_20_019</p>
@@ -73,14 +73,18 @@ if(isset($_GET['PROLIFIC_PID'])){
         </h5> -->
         <div class="sv-description sv-question__description">
           <ul>
-            <li><b>Purpose of Study:</b> The aim of this research is to better measure the effect of political advertisements with the aim of providing better evidence-based strategies for their regulation.</li>
-            <li><b>Data Collected:</b> This survey asks 13 questions, and records an additional 4 pieces of metadata.<ul>
-              <li>13 questions concerning demographic traits such as age, gender, ethnicity, and geographic region, as well as political opinions. These are central to the research being conducted. <em>Only this data will be shared with other researchers</em></li>
-              <li>4 pieces of metadata include 3 data points regarding user, session and study id, provided by Prolific. The final point is the time of submission. These data points are used to link Prolific accounts with completed tasks so that payment can be made.</li>
+            <li><b>Purpose of Study:</b><br>
+              The aim of this research is to better measure the effect of political advertisements with the aim of providing better evidence-based strategies for their regulation.
+            </li>
+            <li><b>Data Collected:</b><br>
+              This survey asks 13 questions, and records an additional 4 pieces of metadata.
+              <ul>
+                <li>13 questions concerning <u>demographic traits</u> such as age, gender, ethnicity, and geographic region, as well as <u>political opinions</u>. These are central to the research being conducted. <em>Only this data will be shared with other researchers</em></li>
+                <li>4 pieces of metadata: prolific user id, session id, study id, and time of submission. These data points are used to link Prolific accounts with completed tasks so that payment can be made.</li>
             </ul></li>
-            <li><b>Data Security:</b> None of the information collected is personally identifiable. Nevertheless, because the researcher cares greatly about data security, all stored information will be stored and transferred in a cryptographically secure manner.</li>
-            <li><b>Your Consent:</b> Your participation in this research is entirely <em>voluntary</em>. You may also withdraw your consent, without giving a reason, by advising me prior to 31 December 2020. After this point, information provided may be included in publication, but will always remain anonymised and secure.</li>
-            <li><b>Further Information:</b> For further information, you can contact the lead researcher at <?php echo $email; ?>. At the end of the survey there will also be a debrief and Participant Information Sheet.</li>
+            <li><b>Data Security:</b><br>None of the information collected is personally identifiable. Nevertheless, because the researcher cares greatly about data security, <u>all information will be stored and transferred in a cryptographically secure manner</u>.</li>
+            <li><b>Your Consent:</b><br>Your participation in this research is entirely <em>voluntary</em>. You may also withdraw your consent, without giving a reason, by advising me prior to 31 December 2020. After this point, information provided may be included in publication, but will always remain anonymised and secure.</li>
+            <li><b>Further Information:</b><br>For further information, you can contact the lead researcher at <a href=''><?php echo $email; ?></a>. The end of this survey will include a debrief and access to a longer participant information sheet.</li>
         </div>
         <form method="post" action="
         <?php
