@@ -207,7 +207,7 @@ c.KernelGatewayApp.api = 'kernel_gateway.notebook_http'
 ## Runs the notebook (.ipynb) at the given URI on every kernel launched. No seed
 #  by default. (KG_SEED_URI env var)
 #  Default: None
-c.KernelGatewayApp.seed_uri = 'test_interact_api.ipynb'
+c.KernelGatewayApp.seed_uri = 'ml_engine.ipynb'
 
 ## Instead of starting the Application, dump configuration to stdout
 #  See also: Application.show_config
