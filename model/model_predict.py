@@ -1,19 +1,19 @@
+from configparser import ConfigParser
+from os.path import expanduser
 import numpy as np
 from joblib import load, dump
+from misc import state_region as SR
 
-N_TREATS = 24
-ADS_VEC = ['ad_id_fac_26', 'ad_id_fac_27', 'ad_id_fac_33', 'ad_id_fac_38',
-       'ad_id_fac_39', 'ad_id_fac_4', 'ad_id_fac_44', 'ad_id_fac_47',
-       'ad_id_fac_5', 'ad_id_fac_50', 'ad_id_fac_54', 'ad_id_fac_59',
-       'ad_id_fac_6', 'ad_id_fac_60', 'ad_id_fac_62', 'ad_id_fac_63',
-       'ad_id_fac_66', 'ad_id_fac_68', 'ad_id_fac_70', 'ad_id_fac_71',
-       'ad_id_fac_75', 'ad_id_fac_77', 'ad_id_fac_8', 'ad_id_fac_99']
+N_TREATS = 5
+
+config = ConfigParser()
+config.read(expanduser("~")+"/.cfg/.globals")
 
 # Load model
-model = load("../model/prefitted/rf1.joblib")
+model = load(f"../model/prefitted/{config['GLOBALS']['model']}.joblib")
 
 # Parse input data
-# req = {"age": ["60"], "gender": ["1"], "race": ["1"], "income": ["4"], "region": ["4"], "newsint": ["2"], "track_pre": ["wrong track"], "pid_7_pre": ["7"], "ideo5_pre": ["5"]}
+# req = {"age": ["60"], "gender": ["1"], "race": ["1"], "income": ["4"], "state": ["AL"], "newsint": ["2"], "track_pre": ["wrong track"], "pid_7_pre": ["7"], "ideo5_pre": ["5"]}
 
 def rand_optimum(a, method='min'):
     """
@@ -35,7 +35,7 @@ def parse_input(req):
     Parses JSON data transmitted by survey form.
     """
     age = np.array([np.float64(req['age'][0])])
-    female_pre = np.array([np.float64(req['gender'][0])])
+    female_pre = np.array([np.float64(0 if req['gender'][0]=='0' else 1)])
     ideo5_pre = np.array([np.float64(req['ideo5_pre'][0])])
     income3 = np.array([np.float64(req['income'][0])])
     newsint = np.array([np.float64(req['newsint'][0])])
@@ -43,7 +43,7 @@ def parse_input(req):
     race = np.zeros(shape=(8,), dtype=np.float64)
     race[int(req['race'][0]) - 1] = 1
     region = np.zeros(shape=(4,), dtype=np.float64)
-    region[int(req['region'][0]) - 1] = 1
+    region[int(SR[req['state'][0]]) - 1] = 1
     if req['track_pre'][0] == 'not sure':
         track_pre = np.array([1, 0, 0], dtype=np.float64)
     elif req['track_pre'][0] == 'right track':

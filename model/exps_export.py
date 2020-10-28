@@ -20,7 +20,7 @@ column_dict = {
     'female_pre': 'gender',
     'race': 'race',
     'income3': 'income',
-    'region': 'region',
+    'region': 'state',
     'newsint': 'newsint',
     'track_pre': 'track_pre',
     'pid_7_pre': 'pid_7_pre',
@@ -30,6 +30,16 @@ column_dict = {
     'favorHC_rev': 'favorDT_rev',
     'general_vote_DT': 'general_vote'}
 
+# Changing region to state in this, so I want to temporarily switch it.
+region_state = {
+    1 : 'NY',
+    2 : 'IL',
+    3 : 'TX',
+    4 : 'CA'
+}
+data.loc[:, 'region'] = data['region'].apply(lambda x: region_state[x])
+data.loc[:, 'ad_id'] = data['ad_id'].apply(lambda x: 1 + x % 5)
+
 # Take Anti Trump subset
 df = data.loc[
     data['assignment'] == 'Anti Trump',
@@ -38,7 +48,7 @@ df.rename(column_dict, axis=1, inplace=True)
 
 # Create test_pre dataframe
 pre_cols = ['prolific_pid', 'study_id', 'session_id', 'age', 'gender', 'race',
-            'income', 'region', 'newsint', 'track_pre', 'pid_7_pre',
+            'income', 'state', 'newsint', 'track_pre', 'pid_7_pre',
             'ideo5_pre', 'ad_id', 'brief_id']
 df_pre = df.loc[:, df.columns.isin(pre_cols)].copy()
 df_pre[['study_id', 'session_id']] = "CHV20"
