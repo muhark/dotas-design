@@ -6,8 +6,6 @@
   <title>Political Ads Survey</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=font1|font2|etc" type="text/css">
   <link rel="stylesheet" href="/survey.css" type="text/css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
-  <!-- <script src="https://assets.crowd.aws/crowd-html-elements.js"></script> -->
 </head>
 
 <body>
@@ -26,7 +24,7 @@ foreach($userVars as $name){
     // echo $name . " is set to " . $_GET[$name] . "<br>";
     $userData[$name] = $_GET[$name];
   } else {
-    echo $name . " is unset<br>";
+    // echo $name . " is unset<br>";
     $userData[$name] = "UNSET_" . $name;
   }
 }
