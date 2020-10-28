@@ -55,7 +55,7 @@ foreach($postVars as $name){
 // SET TO /train FOR STAGE 1
 // SET TO /predict FOR STAGE 2
 $ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, "http://127.0.0.1:8889/train");
+curl_setopt($ch, CURLOPT_URL, "http://127.0.0.1:8889/predict");
 curl_setopt($ch, CURLOPT_POST, 1);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $dbData);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
